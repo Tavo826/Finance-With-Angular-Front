@@ -7,6 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
 import { EditTransactionComponent } from './edit-transaction/edit-transaction.component';
 import { ViewTransactionComponent } from './view-transaction/view-transaction.component';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,10 +20,12 @@ import { ViewTransactionComponent } from './view-transaction/view-transaction.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ToastrModule.forRoot()
   ],
   providers: [
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

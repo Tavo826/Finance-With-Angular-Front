@@ -34,6 +34,7 @@ const MODALS: { [name: string]: Type<any> } = {
 
 @Component({
   selector: 'app-home',
+  standalone: false,
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
