@@ -3,10 +3,11 @@ import { Router, RouterLink } from '@angular/router';
 import { HttpProviderService } from '../service/http-provider.service';
 import { TransactionResponse } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, SweetAlert2Module],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

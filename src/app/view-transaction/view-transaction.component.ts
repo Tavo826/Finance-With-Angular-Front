@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { ApiResponse, TransactionResponse } from '../interface/transaction.models';
 import { ActivatedRoute } from '@angular/router';
 import { HttpProviderService } from '../service/http-provider.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view-transaction',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './view-transaction.component.html',
   styleUrl: './view-transaction.component.css'
 })

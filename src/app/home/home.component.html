@@ -27,8 +27,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let transaction of transactionList" class="center-align">
-                        <td>{{ transaction.amount }}</td>
-                        <td>{{ transaction.type }}</td>
+                        <td>{{ transaction.amount.toLocaleString() }}</td>
+                        <td [ngClass]="{'income': transaction.type == 'Income', 'output': transaction.type == 'Output'}">{{ transaction.type }}</td>
                         <td>{{ transaction.subject }}</td>
                         <td>{{ transaction.person_business }}</td>
                         <td>{{ transaction.description }}</td>
@@ -36,7 +36,9 @@
                         <td>
                             <a [routerLink]="['/ViewTransaction', transaction._id]" class="btn"><i class="fas fa-eye view"></i></a>
                             <a [routerLink]="['/EditTransaction', transaction._id]" class="btn"><i class="fa fa-edit view"></i></a>
-                            <button type="button" (click)="deleteTransaction(transaction)" class="btn"><i class="fas fa-trash-alt delete"></i></button>
+                            <button type="button" 
+                            [swal]="{ title: 'Confirmation', text: 'Delete this register?', showCancelButton: true }"
+                            (confirm)="deleteTransaction(transaction)" class="btn"><i class="fas fa-trash-alt delete"></i></button>
                         </td>
                     </tr>
                     <tr>

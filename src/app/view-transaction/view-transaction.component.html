@@ -19,11 +19,11 @@
                     </tr>
                     <tr>
                         <td><label><b>Amount</b></label></td>
-                        <td><span>{{ transactionDetail?.amount }}</span></td>
+                        <td><span>{{ transactionDetail?.amount?.toLocaleString() }}</span></td>
                     </tr>
                     <tr>
                         <td><label><b>Type</b></label></td>
-                        <td><span>{{ transactionDetail?.type }}</span></td>
+                        <td [ngClass]="{'income': transactionDetail?.type == 'Income', 'output': transactionDetail?.type == 'Output'}"><span>{{ transactionDetail?.type }}</span></td>
                     </tr>
                     <tr>
                         <td><label><b>Subject</b></label></td>
