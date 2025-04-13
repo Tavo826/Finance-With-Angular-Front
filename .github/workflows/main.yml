@@ -46,7 +46,7 @@ jobs:
       - name: Deploy to Pages
         uses: crazy-max/ghaction-github-pages@v4.2.0
         with:
-          build_dir: dist/personal-finance
+          build_dir: dist/personal-finance/browser
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         
