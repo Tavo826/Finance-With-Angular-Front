@@ -1,3 +1,3 @@
 export const environment = {
-    apiURL: 'http://localhost:8080/transactions'
+    apiURL: 'https://objective-editha-igorditto-92d38cd4.koyeb.app/transactions'
 };

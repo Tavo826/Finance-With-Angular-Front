@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production --base-href /Finance-With-Angular-Front/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
