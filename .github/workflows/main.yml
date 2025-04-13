@@ -40,7 +40,7 @@ jobs:
 
       #Route file renaming
       - name: Rename index for routing
-        run: mv dist/personal-finance/index.html dist/personal-finance/404.html
+        run: mv dist/personal-finance/src/index.html dist/personal-finance/src/404.html
 
       # Deploy to Github Pages
       - name: Deploy to Pages
