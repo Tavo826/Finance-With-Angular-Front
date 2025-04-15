@@ -4,10 +4,11 @@ import { HttpProviderService } from '../service/http-provider.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiResponse, TransactionRequest } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
+import { LoadingComponent } from "../shared/loading/loading.component";
 
 @Component({
   selector: 'app-edit-transaction',
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent],
   templateUrl: './edit-transaction.component.html',
   styleUrl: './edit-transaction.component.css'
 })

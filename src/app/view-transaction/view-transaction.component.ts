@@ -3,10 +3,11 @@ import { ApiResponse, TransactionResponse } from '../interface/transaction.model
 import { ActivatedRoute } from '@angular/router';
 import { HttpProviderService } from '../service/http-provider.service';
 import { CommonModule } from '@angular/common';
+import { LoadingComponent } from "../shared/loading/loading.component";
 
 @Component({
   selector: 'app-view-transaction',
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingComponent],
   templateUrl: './view-transaction.component.html',
   styleUrl: './view-transaction.component.css'
 })

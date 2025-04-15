@@ -4,15 +4,17 @@ import { HttpProviderService } from '../service/http-provider.service';
 import { TransactionResponse } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LoadingComponent } from "../shared/loading/loading.component";
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, CommonModule, SweetAlert2Module],
+  imports: [RouterLink, CommonModule, SweetAlert2Module, LoadingComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
+  isLoading: boolean = true
   transactionList: TransactionResponse[] = []
 
   router = inject(Router)
@@ -25,12 +27,15 @@ export class HomeComponent {
 
   async getAllTransaction() {
 
+    this.isLoading = true
+
     this.httpProvider.getAllTransaction().subscribe({
       next: (data: any) => {
         if (data != null && data.body != null) {
           var resultData = data.body
           if (resultData) {
             this.transactionList = resultData
+            this.isLoading = false
           }
         }
       },
@@ -39,6 +44,7 @@ export class HomeComponent {
           if (error.status == 400) {
             if (error.error && error.error.message) {
               this.transactionList = []
+              this.isLoading = false
             }
           }
         }
