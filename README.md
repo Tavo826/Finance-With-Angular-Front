@@ -2,6 +2,11 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
 
+## Deployed in
+
+* Github Pages: https://tavo826.github.io/Finance-With-Angular-Front/Home
+* Netlify: https://transcendent-brioche-97eea6.netlify.app/Home
+
 ## Development server
 
 To start a local development server, run:
