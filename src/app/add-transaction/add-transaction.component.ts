@@ -18,6 +18,7 @@ export class AddTransactionComponent {
   router = inject(Router)
 
   isSubmitted: boolean = false
+  errores: string = ""
   transactionTypes: string[] = ["Income", "Output"]
   transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
 
@@ -33,8 +34,13 @@ export class AddTransactionComponent {
   addTransaction() {
     this.isSubmitted = true
     let transaction = this.form.value as TransactionRequest;
-    this.httpProvider.saveTransaction(transaction).subscribe(() => {
-      this.router.navigate(['Home'])
+    this.httpProvider.saveTransaction(transaction).subscribe({
+      next: () => {
+        this.router.navigate(['Home'])
+      },
+      error: err => {
+        const errores = err;
+      }
     })
   }
 

@@ -20,6 +20,7 @@ export class EditTransactionComponent {
   route = inject(ActivatedRoute)
 
   isSubmitted = false
+  errores: string = ""
   transactionId = this.route.snapshot.params['transactionId']
   editTransaction: any
 
@@ -49,7 +50,9 @@ export class EditTransactionComponent {
           this.form.patchValue(resultData)
         }
       },
-      error: (error: any) => {}
+      error: (error: any) => {
+        this.errores = error
+      }
     })
   }
 

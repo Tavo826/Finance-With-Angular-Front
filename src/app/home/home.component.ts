@@ -15,6 +15,7 @@ import { LoadingComponent } from "../shared/loading/loading.component";
 export class HomeComponent {
 
   isLoading: boolean = true
+  errores: string = ""
   transactionList: TransactionResponse[] = []
 
   router = inject(Router)
@@ -37,17 +38,13 @@ export class HomeComponent {
             this.transactionList = resultData
             this.isLoading = false
           }
+        } else{
+          this.transactionList = []
+          this.isLoading = false
         }
       },
       error: (error: any) => {
-        if (error) {
-          if (error.status == 400) {
-            if (error.error && error.error.message) {
-              this.transactionList = []
-              this.isLoading = false
-            }
-          }
-        }
+        this.errores = error
       }
     })
   }

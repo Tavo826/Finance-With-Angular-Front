@@ -18,6 +18,7 @@ export class ViewTransactionComponent {
 
   transactionDetail: TransactionResponse | undefined
   transactionId = this.route.snapshot.params['transactionId']
+  errores: string = ""
 
   constructor() {
 
@@ -31,7 +32,9 @@ export class ViewTransactionComponent {
           this.transactionDetail = data.body
         }
       },
-      error: (error: any) => {}
+      error: (error: any) => {
+        this.errores = error
+      }
     })
   }
 }
