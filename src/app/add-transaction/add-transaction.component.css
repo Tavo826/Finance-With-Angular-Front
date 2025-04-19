@@ -1,66 +1,156 @@
 .container-xl {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
     padding: 0px;
-    margin-top:6%;
-    width: 50%;
+    margin-top: 6%;
+    margin-bottom: 30px;
+}
 
-    .table-responsive {
-        margin: 30px 0;
-        .table-wrapper {
-            background: #333232;
-            padding: 20px 25px;
-            border-radius: 3px;
-            box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
-
-            .table-title {
-                padding-bottom: 15px;
-                background: #3f3d3d;
-                color: #fff;
-                padding: 16px 30px;
-                min-width: 100%;
-                margin: -20px -25px 10px;
-                border-radius: 3px 3px 0 0;
-                .back{
-                    float: right;
-                    text-transform: uppercase;
-                    font-size: 13px !important;
-                }
-            }
-            .table-footer{
-                padding-top: 10px;
-                text-align: center;
-                .btn {
-                    color: #fff;
-                    width: 100px;
-                    border-radius: 2px;
-                    font-size: 15px !important;
-                    text-transform: uppercase;
-                }
-            }
-
-            .table-content{
-                select{
-                    width: 100%;
-                    padding: 0.375rem 0.75rem;
-                    font-size: 1rem;
-                    font-weight: 400;
-                    line-height: 1.5;
-                    color: #212529;
-                    background-color: #fff;
-                    background-clip: padding-box;
-                    border: 1px solid #ced4da;
-                }
-                .p-10{
-                    padding : 10px;
-                }
-                .p-t-b-10{
-                    padding: 10px 0px;
-                }
-                .requiredStar{
-                    color : red;
-                    padding-left: 5px;
-                }
-            }
-        }
+/* Responsive width adjustments */
+@media (min-width: 1200px) {
+    .container-xl {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
     }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .container-xl {
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .container-xl {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .container-xl {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+    }
+}
+
+.table-responsive {
+    margin: 20px 0;
+}
+
+.table-wrapper {
+    background: #333232;
+    padding: 20px 25px;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+@media (max-width: 576px) {
+    .table-wrapper {
+        padding: 15px;
+    }
+}
+
+.table-title {
+    padding-bottom: 15px;
+    background: #3f3d3d;
+    color: #fff;
+    padding: 16px 20px;
+    margin: -20px -25px 10px;
+    border-radius: 3px 3px 0 0;
+}
+
+@media (max-width: 576px) {
+    .table-title {
+        margin: -15px -15px 10px;
+        padding: 12px 15px;
+    }
+    
+    .table-title h4 {
+        font-size: 1.2rem;
+    }
+}
+
+.table-title .back {
+    text-transform: uppercase;
+    font-size: 13px !important;
+}
+
+.table-footer {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.table-footer .btn {
+    color: #fff;
+    width: 100px;
+    border-radius: 2px;
+    font-size: 15px !important;
+    text-transform: uppercase;
+}
+
+@media (max-width: 576px) {
+    .table-footer .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+.table-content select {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+}
+
+.table-content .p-10 {
+    padding: 10px;
+}
+
+.table-content .p-t-b-10 {
+    padding: 10px 0px;
+}
+
+.requiredStar {
+    color: red;
+    padding-left: 5px;
+}
+
+/* Form validation styling */
+.validationError {
+    font-size: 0.85rem;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.form-label {
+    color: #fff;
+}
+
+/* Responsive form label adjustments */
+@media (max-width: 767px) {
+    .form-label {
+        margin-bottom: 0.25rem;
+    }
+}
+
+/* Container for error messages */
+.container-error {
+    color: #f44336;
+    background-color: #9e9a9a;
+    border-radius: 3px;
+    padding: 8px 10px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
 }

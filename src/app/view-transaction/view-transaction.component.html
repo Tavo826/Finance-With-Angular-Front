@@ -1,54 +1,59 @@
 <div class="container-xl">
-    <div class="container-error">{{errores}}</div>
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h4><b>View Transaction</b></h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="#" routerLink="/Home" class="btn btn-success back"><i class="fas fa-arrow-circle-lef"></i> Back</a>
-                    </div>
-                </div>
-            </div>
-            @if (transactionDetail?._id) {
-                <table class="table table-striped table-hover table-bordered table-content">
-                    <tbody>
-                        <tr>
-                            <td><label><b>Id</b></label></td>
-                            <td><span>{{ transactionDetail?._id }}</span></td>
-                        </tr>
-                        <tr>
-                            <td><label><b>Amount</b></label></td>
-                            <td><span>{{ transactionDetail?.amount?.toLocaleString() }}</span></td>
-                        </tr>
-                        <tr>
-                            <td><label><b>Type</b></label></td>
-                            <td [ngClass]="{'income': transactionDetail?.type == 'Income', 'output': transactionDetail?.type == 'Output'}"><span>{{ transactionDetail?.type }}</span></td>
-                        </tr>
-                        <tr>
-                            <td><label><b>Subject</b></label></td>
-                            <td><span>{{ transactionDetail?.subject }}</span></td>
-                        </tr>
-                        <tr>
-                            <td><label><b>Person Or Business</b></label></td>
-                            <td><span>{{ transactionDetail?.person_business }}</span></td>
-                        </tr>
-                        <tr>
-                            <td><label><b>Description</b></label></td>
-                            <td><span>{{ transactionDetail?.description }}</span></td>
-                        </tr>
-                        <tr>
-                            <td><label><b>Date</b></label></td>
-                            <td><span>{{ transactionDetail?.created }}</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            }@else {
-                <app-loading></app-loading>
-            }
-            
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 mb-2 mb-md-0">
+            <h4 class="mb-0"><b>View Transaction</b></h4>
+          </div>
+          <div class="col-md-6 col-sm-12 text-md-end text-center">
+            <a href="#" routerLink="/Home" class="btn btn-success back">
+              <i class="fas fa-arrow-circle-left"></i> Back
+            </a>
+          </div>
         </div>
+      </div>
+      @if (transactionDetail?._id) {
+      <table class="table table-striped table-hover table-bordered table-content">
+        <tbody>
+          <tr>
+            <td class="col-4 col-sm-3"><label><b>Id</b></label></td>
+            <td class="col-8 col-sm-9"><span>{{ transactionDetail?._id }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Amount</b></label></td>
+            <td><span>{{ transactionDetail?.amount?.toLocaleString() }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Type</b></label></td>
+            <td
+              [ngClass]="{'income': transactionDetail?.type == 'Income', 'output': transactionDetail?.type == 'Output'}">
+              <span>{{ transactionDetail?.type }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td><label><b>Subject</b></label></td>
+            <td><span>{{ transactionDetail?.subject }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Person Or Business</b></label></td>
+            <td><span>{{ transactionDetail?.person_business }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Description</b></label></td>
+            <td><span>{{ transactionDetail?.description }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Date</b></label></td>
+            <td><span>{{ transactionDetail?.created }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+      }@else {
+      <div class="d-flex justify-content-center my-4">
+        <app-loading></app-loading>
+      </div>
+      }
     </div>
+  </div>
 </div>

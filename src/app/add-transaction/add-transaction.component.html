@@ -4,25 +4,28 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <h4><b>New Transaction</b></h4>
+                    <div class="col-md-6 col-sm-12 mb-2 mb-md-0">
+                        <h4 class="mb-0"><b>New Transaction</b></h4>
                     </div>
-                    <div class="col-sm-6">
-                        <a href="#" routerLink="/Home" class="btn btn-success back"><i class="fas fa-arrow-circle-left"></i> Back</a>
+                    <div class="col-md-6 col-sm-12 text-md-end text-center">
+                        <a href="#" routerLink="/Home" class="btn btn-success back">
+                            <i class="fas fa-arrow-circle-left"></i> Back
+                        </a>
                     </div>
                 </div>
             </div>
             <form (submit)="addTransaction()" [formGroup]="form">
                 <div class="table-content">
 
-                    <div class="form-group p-10 row">
-                        <div class="col-sm-3">
-                            <label for="Amount" class="p-t-b-10">Amount<span class="requiredStar">*</span></label>
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Amount" class="form-label">Amount<span class="requiredStar">*</span></label>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-lg-9 col-md-8 col-sm-12">
                             <input type="number" class="form-control" id="Amount" required
-                            [formControl]="form.controls.amount">
-                            <div *ngIf="form.controls.amount.errors && isSubmitted" class="alert alert-danger validationError">
+                                [formControl]="form.controls.amount">
+                            <div *ngIf="form.controls.amount.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
                                 <div [hidden]="!form.controls.amount.errors['required']">
                                     Amount is required
                                 </div>
@@ -30,17 +33,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group p-10 row">
-                        <div class="col-sm-3">
-                            <label for="Type" class="p-t-b-10">Type<span class="requiredStar">*</span></label>
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Type" class="form-label">Type<span class="requiredStar">*</span></label>
                         </div>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="Type" required
-                            [formControl]="form.controls.type">
-                            <option value="" disabled selected>Select type</option>
-                            <option *ngFor="let type of transactionTypes" [value]="type">{{type}}</option>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <select class="form-select" id="Type" required [formControl]="form.controls.type">
+                                <option value="" disabled selected>Select type</option>
+                                <option *ngFor="let type of transactionTypes" [value]="type">{{type}}</option>
                             </select>
-                            <div *ngIf="form.controls.type.errors && isSubmitted" class="alert alert-danger validationError">
+                            <div *ngIf="form.controls.type.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
                                 <div [hidden]="!form.controls.type.errors['required']">
                                     Type is required
                                 </div>
@@ -48,17 +51,18 @@
                         </div>
                     </div>
 
-                    <div class="form-group p-10 row">
-                        <div class="col-sm-3">
-                            <label for="Subject" class="p-t-b-10">Subject<span class="requiredStar">*</span></label>
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Subject" class="form-label">Subject<span class="requiredStar">*</span></label>
                         </div>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="Subject" required
-                            [formControl]="form.controls.subject">
-                            <option value="" disabled selected>Select subject</option>
-                            <option *ngFor="let subject of transactionSubjects" [value]="subject">{{subject}}</option>
-                        </select>
-                            <div *ngIf="form.controls.subject.errors && isSubmitted" class="alert alert-danger validationError">
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <select class="form-select" id="Subject" required [formControl]="form.controls.subject">
+                                <option value="" disabled selected>Select subject</option>
+                                <option *ngFor="let subject of transactionSubjects" [value]="subject">{{subject}}
+                                </option>
+                            </select>
+                            <div *ngIf="form.controls.subject.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
                                 <div [hidden]="!form.controls.subject.errors['required']">
                                     Subject is required
                                 </div>
@@ -66,14 +70,16 @@
                         </div>
                     </div>
 
-                    <div class="form-group p-10 row">
-                        <div class="col-sm-3">
-                            <label for="PersonOrBusiness" class="p-t-b-10">Person or Business<span class="requiredStar">*</span></label>
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="PersonOrBusiness" class="form-label">Person or Business<span
+                                    class="requiredStar">*</span></label>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-lg-9 col-md-8 col-sm-12">
                             <input type="text" class="form-control" id="PersonOrBusiness" required maxlength="255"
-                            [formControl]="form.controls.person_business">
-                            <div *ngIf="form.controls.person_business.errors && isSubmitted" class="alert alert-danger validationError">
+                                [formControl]="form.controls.person_business">
+                            <div *ngIf="form.controls.person_business.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
                                 <div [hidden]="!form.controls.person_business.errors['required']">
                                     Person or Business is required
                                 </div>
@@ -81,14 +87,16 @@
                         </div>
                     </div>
 
-                    <div class="form-group p-10 row">
-                        <div class="col-sm-3">
-                            <label for="Description" class="p-t-b-10">Description<span class="requiredStar">*</span></label>
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Description" class="form-label">Description<span
+                                    class="requiredStar">*</span></label>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-lg-9 col-md-8 col-sm-12">
                             <input type="text" class="form-control" id="Description" required maxlength="255"
-                            [formControl]="form.controls.description">
-                            <div *ngIf="form.controls.description.errors && isSubmitted" class="alert alert-danger validationError">
+                                [formControl]="form.controls.description">
+                            <div *ngIf="form.controls.description.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
                                 <div [hidden]="!form.controls.description.errors['required']">
                                     Description is required
                                 </div>
@@ -96,14 +104,15 @@
                         </div>
                     </div>
 
-                    <div class="form-group p-10 row">
-                        <div class="col-sm-3">
-                            <label for="Date" class="p-t-b-10">Date<span class="requiredStar">*</span></label>
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Date" class="form-label">Date<span class="requiredStar">*</span></label>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-lg-9 col-md-8 col-sm-12">
                             <input type="date" class="form-control" id="Date" required
-                            [formControl]="form.controls.created">
-                            <div *ngIf="form.controls.created.errors && isSubmitted" class="alert alert-danger validationError">
+                                [formControl]="form.controls.created">
+                            <div *ngIf="form.controls.created.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
                                 <div [hidden]="!form.controls.created.errors['required']">
                                     Date is required
                                 </div>

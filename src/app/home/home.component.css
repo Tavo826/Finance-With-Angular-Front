@@ -1,70 +1,142 @@
-.income{
-    color: green
+.income {
+    color: green;
 }
 
-.output{
+.output {
     color: red;
 }
 
 .container-xl {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
     padding: 0px;
-    margin-top:6%;
-    
-    .table-responsive {
-        margin: 30px 0;
-        .table-wrapper {
-            background: #333232;
-            padding: 20px 25px;
-            border-radius: 3px;
-            min-width: 1000px;
-            box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    margin-top: 6%;
+    margin-bottom: 20px;
+    width: 100%;
+}
 
-            .table-title {
-                padding-bottom: 15px;
-                background: #3f3d3d;
-                color: #fff;
-                padding: 16px 30px;
-                min-width: 100%;
-                margin: -20px -25px 10px;
-                border-radius: 3px 3px 0 0;
-                .btn {
-                    color: #fff;
-                    float: right;
-                    font-size: 13px;
-                    border: none;
-                    min-width: 50px;
-                    border-radius: 2px;
-                    border: none;
-                    outline: none !important;
-                    margin-left: 10px;
-                    i {
-                        float: left;
-                        font-size: 21px;
-                        margin-right: 5px;
-                    }
-                    span {
-                        float: left;
-                        margin-top: 2px;
-                    }
-                }
-            }
-            .table-content {
-                .center-align{
-                    text-align: center;
-                }
-                .delete {
-                    color: #f44336;
-                    padding: 5px;
-                }
-                .edit {
-                    color: #ffc107;
-                    padding: 5px;
-                }
-                .view {
-                    color: #0d6efd;
-                }
-            }
-        }
+.table-responsive {
+    margin: 15px 0;
+}
+
+.table-wrapper {
+    background: #333232;
+    padding: 15px;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+/* For mobile devices */
+@media (max-width: 576px) {
+    .table-wrapper {
+        padding: 10px;
     }
+    
+    .container-xl {
+        margin-top: 10%;
+    }
+}
+
+.table-title {
+    padding-bottom: 15px;
+    background: #3f3d3d;
+    color: #fff;
+    padding: 16px 20px;
+    margin: -15px -15px 10px;
+    border-radius: 3px 3px 0 0;
+}
+
+.table-title .btn {
+    color: #fff;
+    font-size: 13px;
+    border: none;
+    min-width: 50px;
+    border-radius: 2px;
+    outline: none !important;
+    margin-left: 10px;
+}
+
+.table-title .btn i {
+    float: left;
+    font-size: 21px;
+    margin-right: 5px;
+}
+
+.table-title .btn span {
+    float: left;
+    margin-top: 2px;
+}
+
+.table-content .center-align {
+    text-align: center;
+}
+
+.table-content .delete {
+    color: #f44336;
+}
+
+.table-content .edit,
+.table-content .view {
+    color: #ffc107;
+}
+
+.table-content .view {
+    color: #0d6efd;
+}
+
+/* Card view styling for mobile */
+.card {
+    background: #3f3d3d;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.btn-group .btn {
+    margin: 0 2px;
+}
+
+/* Custom responsive adjustments */
+@media (max-width: 768px) {
+    .table-title h4 {
+        font-size: 1.2rem;
+    }
+    
+    .table th, .table td {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+    
+    .btn-group-sm .btn {
+        padding: 0.2rem 0.4rem;
+    }
+}
+
+/* For small screen tables */
+@media (max-width: 992px) {
+    .table-responsive-sm {
+        overflow-x: auto;
+    }
+}
+
+/* Improve loading component display */
+app-loading {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+/* Make error message container stand out */
+.container-error {
+    color: #f44336;
+    background-color: #3f3d3d;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    text-align: center;
 }
