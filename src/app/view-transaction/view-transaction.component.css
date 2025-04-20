@@ -69,6 +69,11 @@
 }
 
 @media (max-width: 576px) {
+    .table-wrapper {
+        padding: 15px;
+        margin-top: 15px;
+    }
+    
     .table-title {
         margin: -15px -15px 10px;
         padding: 12px 15px;
