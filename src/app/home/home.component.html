@@ -63,6 +63,15 @@
             }@else {
             <app-loading></app-loading>
             }
+            @if (totalTransactions > 10) {
+                <div class="d-flex justify-content-end">
+                    <ngb-pagination 
+                    [collectionSize]="totalTransactions" 
+                    [page]="page"
+                    (pageChange)="pageChange($event)">
+                    </ngb-pagination>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -14,8 +14,8 @@ export class HttpProviderService {
 
   constructor() { }
 
-  public getAllTransaction(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.apiUrl)
+  public getAllTransaction(page: number, limit: number): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(this.apiUrl + "?page=" + page + "&limit=" + limit)
       .pipe(
         map((response: ApiResponse) => this.returnResponseData(response)),
         catchError(this.handleError)
