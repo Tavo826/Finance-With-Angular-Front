@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpProviderService } from '../service/http-provider.service';
 import { TransactionRequest } from '../interface/transaction.models';
@@ -23,7 +23,7 @@ export class AddTransactionComponent {
   transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
 
   form = this.formBuilder.group({
-    amount: [0],
+    amount: [0, Validators.min(0.01)],
     type: [''],
     subject: [''],
     person_business: [''],
@@ -33,6 +33,9 @@ export class AddTransactionComponent {
 
   addTransaction() {
     this.isSubmitted = true
+
+    if (this.form.invalid)  return
+
     let transaction = this.form.value as TransactionRequest;
     this.httpProvider.saveTransaction(transaction).subscribe({
       next: () => {

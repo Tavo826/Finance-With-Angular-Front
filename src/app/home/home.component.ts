@@ -56,6 +56,7 @@ export class HomeComponent {
   }
 
   pageChange(event: number) {
+    this.page = event
     this.getAllTransaction(event, this.limit)
   }
 

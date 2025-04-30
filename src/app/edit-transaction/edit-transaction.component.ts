@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpProviderService } from '../service/http-provider.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiResponse, TransactionRequest } from '../interface/transaction.models';
@@ -32,7 +32,7 @@ export class EditTransactionComponent {
   }
 
   form = this.formBuilder.group({
-    amount: [0],
+    amount: [0, Validators.min(0.01)],
     type: [''],
     subject: [''],
     person_business: [''],
