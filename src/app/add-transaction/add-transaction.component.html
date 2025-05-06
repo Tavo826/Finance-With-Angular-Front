@@ -24,8 +24,7 @@
                         <div class="col-lg-9 col-md-8 col-sm-12">
                             <input type="number" class="form-control" id="Amount" required min="0"
                                 [formControl]="form.controls.amount">
-                            <div *ngIf="form.controls.amount.errors && isSubmitted"
-                                class="alert alert-danger validationError mt-2">
+                            <div *ngIf="form.controls.amount.errors && isSubmitted" class="alert alert-danger validationError mt-2">
                                 <div [hidden]="!form.controls.amount.errors['required']">
                                     Amount is required
                                 </div>

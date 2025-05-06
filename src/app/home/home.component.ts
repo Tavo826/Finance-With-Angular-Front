@@ -38,10 +38,9 @@ export class HomeComponent {
       next: (data: any) => {
         if (data != null && data.body != null) {
           var resultData = data.body
-          var totalDocuments = data.totalDocuments
           if (resultData) {
-            this.transactionList = resultData
-            this.totalTransactions = totalDocuments
+            this.transactionList = resultData.data
+            this.totalTransactions = resultData.totalDocuments
             this.isLoading = false
           }
         } else{

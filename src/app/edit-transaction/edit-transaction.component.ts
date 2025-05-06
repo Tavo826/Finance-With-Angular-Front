@@ -38,6 +38,8 @@ export class EditTransactionComponent {
     person_business: [''],
     description: [''],
     created: [''],
+    created_at: [''],
+    updated_at: [''],
   });
 
   getTransactionDetailById() {
@@ -59,6 +61,9 @@ export class EditTransactionComponent {
   EditTransaction(isValid: boolean) {
 
     this.isSubmitted = true
+
+    if (this.form.invalid)  return
+    
     if (isValid) {
       let transaction = this.form.value as TransactionRequest;
       this.httpProvider.updateTransaction(this.transactionId, transaction).subscribe(() => {

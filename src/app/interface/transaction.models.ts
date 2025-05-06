@@ -5,6 +5,8 @@ export interface TransactionRequest {
     person_business: string;
     description: string;
     created: string;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface TransactionResponse extends TransactionRequest {
@@ -14,9 +16,11 @@ export interface TransactionResponse extends TransactionRequest {
 export interface ApiResponseList {
     body: TransactionResponse[];
     message: string;
+    success: boolean;
 }
 
 export interface ApiResponse {
     body: TransactionResponse;
     message: string;
+    success: boolean;
 }

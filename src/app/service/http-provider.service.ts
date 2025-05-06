@@ -23,7 +23,7 @@ export class HttpProviderService {
   }
 
   public getTransactionById(id: number): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.apiUrl + "/" + id)
+    return this.http.get<ApiResponse>(this.apiUrl + id)
       .pipe(
         map((response: ApiResponse) => this.returnResponseData(response)),
         catchError(this.handleError)
@@ -39,7 +39,7 @@ export class HttpProviderService {
   }
 
   public updateTransaction(id: number, model: TransactionRequest): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.apiUrl + "/" + id, model)
+    return this.http.put<ApiResponse>(this.apiUrl + id, model)
     .pipe(
       map((response: ApiResponse) => this.returnResponseData(response)),
       catchError(this.handleError)
@@ -47,7 +47,7 @@ export class HttpProviderService {
   }
 
   public deleteTransaction(id: number): Observable<any> {
-    return this.http.delete<any>(this.apiUrl + "/" + id)
+    return this.http.delete<any>(this.apiUrl + id)
     .pipe(
       map((response: any) => this.returnResponseData(response)),
       catchError(this.handleError)
