@@ -6,10 +6,38 @@
                     <div class="col-sm-6 col-sm-12 mb-2 mb-md-0">
                         <h4 class="mb-0"><b>Manage Transactions</b></h4>
                     </div>
-                    <div class="col-sm-6 col-sm-12 text-md-end text-center">
+                    <div class="col-sm-6 col-sm-12 text-md-end text-center position-relative">
+                        <button class="btn btn-info m2" (click)="toggleFilter()">
+                            <i class="fas fa-filter"></i><span> Filter</span>
+                        </button>
+                        <button *ngIf="isFilterActive" class="btn btn-warning mx-1" (click)="clearFilter()">
+                            <i class="fas fa-times"></i><span> Clear Filter</span>
+                        </button>
                         <button class="btn btn-success" (click)="AddTransaction()">
                             <i class="fas fa-plus-circle"></i><span> ADD</span>
                         </button>
+                        <div class="filter-panel shadow p-3 rounded"
+                        *ngIf="filterVisible">
+                            <div class="d-flex align-items-center">
+                                <select class="form-select me-2"
+                                [(ngModel)]="selectedYear">
+                                    <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+                                </select>
+                                <select class="form-select me-2"
+                                [(ngModel)]="selectedMonth">
+                                    <option value="">All Months</option>
+                                    <option *ngFor="let m of months.keys()" [value]="m">{{ m }}</option>
+                                </select>
+                                <button class="btn btn-primary"
+                                (click)="applyFilter()">
+                                    Apply
+                                </button>
+                                <button class="btn btn-secondary"
+                                (click)="clearFilter()">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="container-error">{{errores}}</div>

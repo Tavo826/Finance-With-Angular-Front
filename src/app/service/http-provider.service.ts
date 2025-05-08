@@ -22,6 +22,23 @@ export class HttpProviderService {
       )
   }
 
+  public getFilteredTransaction(
+    page: number,
+    limit: number,
+    year: number,
+    month: number
+  ): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(this.apiUrl + 
+        "filter?page=" + page + 
+        "&limit=" + limit +
+        "&year=" + year + 
+        "&month=" + month)
+      .pipe(
+        map((response: ApiResponse) => this.returnResponseData(response)),
+        catchError(this.handleError)
+      )
+  }
+
   public getTransactionById(id: number): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(this.apiUrl + id)
       .pipe(

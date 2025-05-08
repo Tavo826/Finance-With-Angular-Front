@@ -21,6 +21,23 @@
     -webkit-overflow-scrolling: touch; /* Mejora el scroll en iOS */
 }
 
+.filter-panel {
+    position: absolute;
+    top: 100%;                /* justo debajo de los botones */
+    right: 0;                 /* alineado a la derecha */
+    background: white;
+    border: 1px solid #ddd;
+    z-index: 10;
+    min-width: 380px;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 .table-wrapper {
     background: #333232;
     padding: 20px 25px;
@@ -47,6 +64,16 @@
     /* Mejora la visualización de los botones en móvil */
     .btn-group-sm .btn {
         padding: 0.2rem 0.3rem;
+    }
+
+    .filter-panel {
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+    .filter-panel .form-select,
+    .filter-panel .btn {
+    margin-bottom: 0.5rem;
     }
 }
 

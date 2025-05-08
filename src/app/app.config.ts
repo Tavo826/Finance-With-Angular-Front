@@ -10,6 +10,8 @@ export const appConfig: ApplicationConfig = {
     { eventCoalescing: true }), 
     provideRouter(routes),
     provideHttpClient(withFetch()),
-    importProvidersFrom([SweetAlert2Module.forRoot()])
+    importProvidersFrom([
+      SweetAlert2Module.forRoot()
+    ])
   ]
 };
