@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { HttpProviderService } from '../service/http-provider.service';
+import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
 import { TransactionRequest } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 
@@ -14,11 +14,11 @@ import { CommonModule } from '@angular/common';
 export class AddTransactionComponent {
 
   private readonly formBuilder = inject(FormBuilder)
-  httpProvider = inject(HttpProviderService);
+  httpProvider = inject(HttpTransactionProviderService);
   router = inject(Router)
 
   isSubmitted: boolean = false
-  errores: string = ""
+  errors: string = ""
   transactionTypes: string[] = ["Income", "Output"]
   transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
 
@@ -42,7 +42,7 @@ export class AddTransactionComponent {
         this.router.navigate(['Home'])
       },
       error: err => {
-        const errores = err;
+        this.errors = err;
       }
     })
   }

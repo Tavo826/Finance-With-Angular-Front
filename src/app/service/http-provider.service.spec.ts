@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpProviderService } from './http-provider.service';
+import { HttpTransactionProviderService } from './http-transaction-provider.service';
 
 describe('HttpProviderService', () => {
-  let service: HttpProviderService;
+  let service: HttpTransactionProviderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HttpProviderService);
+    service = TestBed.inject(HttpTransactionProviderService);
   });
 
   it('should be created', () => {

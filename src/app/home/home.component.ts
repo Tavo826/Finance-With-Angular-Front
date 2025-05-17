@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { HttpProviderService } from '../service/http-provider.service';
+import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
 import { TransactionResponse } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent {
 
   isLoading: boolean = true
-  errores: string = ""
+  errors: string = ""
   transactionList: TransactionResponse[] = []
   totalTransactions = 0
   page = 1
@@ -30,7 +30,7 @@ export class HomeComponent {
   isFilterActive = false
 
   router = inject(Router)
-  httpProvider = inject(HttpProviderService)
+  httpProvider = inject(HttpTransactionProviderService)
 
   constructor() {
 
@@ -61,7 +61,7 @@ export class HomeComponent {
         }
       },
       error: (error: any) => {
-        this.errores = error
+        this.errors = error
         this.isLoading = false
       }
     })
@@ -134,7 +134,7 @@ export class HomeComponent {
           }
         },
         error: err => {
-          this.errores = err;
+          this.errors = err;
           this.isLoading = false
         }
       })

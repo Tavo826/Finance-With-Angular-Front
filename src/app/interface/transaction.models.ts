@@ -13,13 +13,13 @@ export interface TransactionResponse extends TransactionRequest {
     _id: number;
 }
 
-export interface ApiResponseList {
+export interface ApiTransactionResponseList {
     body: TransactionResponse[];
     message: string;
     success: boolean;
 }
 
-export interface ApiResponse {
+export interface ApiTransactionResponse {
     body: TransactionResponse;
     message: string;
     success: boolean;

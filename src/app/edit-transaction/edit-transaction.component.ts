@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpProviderService } from '../service/http-provider.service';
+import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ApiResponse, TransactionRequest } from '../interface/transaction.models';
+import { ApiTransactionResponse, TransactionRequest } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../shared/loading/loading.component";
 
@@ -15,7 +15,7 @@ import { LoadingComponent } from "../shared/loading/loading.component";
 export class EditTransactionComponent {
 
   private readonly formBuilder = inject(FormBuilder)
-  httpProvider = inject(HttpProviderService)
+  httpProvider = inject(HttpTransactionProviderService)
   router = inject(Router)
   route = inject(ActivatedRoute)
 
@@ -45,7 +45,7 @@ export class EditTransactionComponent {
   getTransactionDetailById() {
 
     this.httpProvider.getTransactionById(this.transactionId).subscribe({
-      next: (data: ApiResponse) => {
+      next: (data: ApiTransactionResponse) => {
         if (data != null && data.body != null) {
           var resultData = data.body
 

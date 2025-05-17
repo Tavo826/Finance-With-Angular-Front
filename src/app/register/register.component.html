@@ -1,0 +1,107 @@
+<div class="container-xl">
+    <div class="container-error">{{errors}}</div>
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-2 mb-md-0">
+                        <h4 class="mb-0"><b>Register</b></h4>
+                    </div>
+                </div>
+            </div>
+            @if (!isLoading) {
+            <form (submit)="registerUser()" [formGroup]="form">
+                <div class="table-content">
+
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Username" class="form-label">Username<span
+                                    class="requiredStar">*</span></label>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <input type="text" class="form-control" id="Username" required maxlength="255"
+                                [formControl]="form.controls.username">
+                            <div *ngIf="form.controls.username.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
+                                <div [hidden]="!form.controls.username.errors['required']">
+                                    Username is required
+                                </div>
+                                <div [hidden]="!form.controls.username.errors['minlength']">
+                                    Username must be at least 3 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Email" class="form-label">Email<span
+                                    class="requiredStar">*</span></label>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <input type="email" class="form-control" id="Description" required maxlength="255"
+                                [formControl]="form.controls.email">
+                            <div *ngIf="form.controls.email.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
+                                <div [hidden]="!form.controls.email.errors['required']">
+                                    Email is required
+                                </div>
+                                <div [hidden]="!form.controls.email.errors['email']">
+                                    Email must be valid
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Password" class="form-label">Password<span class="requiredStar">*</span></label>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <input type="password" class="form-control" id="Password" required
+                                [formControl]="form.controls.password">
+                            <div *ngIf="form.controls.password.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
+                                <div [hidden]="!form.controls.password.errors['required']">
+                                    Password is required
+                                </div>
+                                <div [hidden]="!form.controls.password.errors['minlength']">
+                                    Password must be at least 6 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="confirmPassword" class="form-label">Confirm Password<span class="requiredStar">*</span></label>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <input type="password" class="form-control" id="ConfirmPassword" required
+                                [formControl]="form.controls.confirmPassword">
+                            <div *ngIf="form.controls.confirmPassword.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
+                                <div [hidden]="!form.controls.confirmPassword.errors['required']">
+                                    Password is required
+                                </div>
+                                <div [hidden]="!form.controls.confirmPassword.errors['passwordMismatch']">
+                                    Passwords must match
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table-footer">
+                    <button type="submit" class="btn btn-success">Register</button>
+                </div>
+                <div class="text-center mt-3 form-footer">
+                    Already have an account? <a routerLink="/login">Log in</a>
+                </div>
+            </form>        
+            }@else {
+                <app-loading></app-loading>
+        }
+        </div>
+    </div>
+</div>
