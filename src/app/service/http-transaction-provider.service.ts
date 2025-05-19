@@ -28,7 +28,10 @@ export class HttpTransactionProviderService {
 
   public getAllTransaction(page: number, limit: number): Observable<ApiTransactionResponse> {
 
-    return this.http.get<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + "?page=" + page + "&limit=" + limit,
+    return this.http.get<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + 
+      "?page=" + page + 
+      "&limit=" + limit +
+      "&user_id=" + this.authService.getUserId(),
       this.getAuthHeaders()
     )
       .pipe(
@@ -44,7 +47,8 @@ export class HttpTransactionProviderService {
     month: number
   ): Observable<ApiTransactionResponse> {
     return this.http.get<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint +
-        "filter?page=" + page + 
+        "filter?user_id=" + this.authService.getUserId() +
+        "&page=" + page + 
         "&limit=" + limit +
         "&year=" + year + 
         "&month=" + month,
@@ -97,10 +101,12 @@ export class HttpTransactionProviderService {
   }
 
   private returnResponseData(response: any) {
+    console.log("return response data: ", response)
     return response;
   }
 
   private handleError(error: any) {
+    console.log("handle error: ", error)
     return throwError(() => new Error(error.message));
   }
 }

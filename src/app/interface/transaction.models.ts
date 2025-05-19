@@ -1,5 +1,6 @@
 export interface TransactionRequest {
     amount: number;
+    user_id: string;
     type: string;
     subject: string;
     person_business: string;

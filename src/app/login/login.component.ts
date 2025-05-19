@@ -38,6 +38,7 @@ export class LoginComponent {
     let loginData = this.form.value as LoginRequest
     this.httpProvider.logUser(loginData).subscribe({
       next: () => {
+        this.isLoading = false
         this.router.navigate(['Home'])
       },
       error: err => {

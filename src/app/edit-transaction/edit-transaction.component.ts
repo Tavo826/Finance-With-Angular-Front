@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiTransactionResponse, TransactionRequest } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../shared/loading/loading.component";
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'app-edit-transaction',
@@ -18,6 +19,7 @@ export class EditTransactionComponent {
   httpProvider = inject(HttpTransactionProviderService)
   router = inject(Router)
   route = inject(ActivatedRoute)
+  authService = inject(AuthService)
 
   isSubmitted = false
   errores: string = ""
@@ -66,6 +68,7 @@ export class EditTransactionComponent {
     
     if (isValid) {
       let transaction = this.form.value as TransactionRequest;
+      transaction.user_id = this.authService.getUserId()!
       this.httpProvider.updateTransaction(this.transactionId, transaction).subscribe(() => {
         this.router.navigate(['Home'])
       })

@@ -10,7 +10,8 @@ export class AuthService {
 
   private currentUserSubject: BehaviorSubject<User | null>
   private currentUser$: Observable<User | null>
-  private tokenKey = ""
+  private tokenKey = "token_key"
+  private userId = "user_id"
 
   private router = inject(Router)
 
@@ -22,6 +23,10 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem(this.userId)
   }
 
   isLoggedIn(): boolean {
@@ -38,6 +43,7 @@ export class AuthService {
   handleAuthentication(response: ApiAuthRespose): ApiAuthRespose {
 
     localStorage.setItem(this.tokenKey, response.body.token)
+    localStorage.setItem(this.userId, response.body.user._id)
 
     this.currentUserSubject.next(response.body.user)
 
@@ -91,7 +97,7 @@ export class AuthService {
         const payload = JSON.parse(jsonPayload)
 
         return {
-          id: payload.id,
+          _id: payload.id,
           email: payload.email,
           username: payload.username || payload.email.split('@')[0],
           role: payload.role

@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
 import { TransactionRequest } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'app-add-transaction',
@@ -16,6 +17,7 @@ export class AddTransactionComponent {
   private readonly formBuilder = inject(FormBuilder)
   httpProvider = inject(HttpTransactionProviderService);
   router = inject(Router)
+  authService = inject(AuthService)
 
   isSubmitted: boolean = false
   errors: string = ""
@@ -37,6 +39,7 @@ export class AddTransactionComponent {
     if (this.form.invalid)  return
 
     let transaction = this.form.value as TransactionRequest;
+    transaction.user_id = this.authService.getUserId()!
     this.httpProvider.saveTransaction(transaction).subscribe({
       next: () => {
         this.router.navigate(['Home'])
