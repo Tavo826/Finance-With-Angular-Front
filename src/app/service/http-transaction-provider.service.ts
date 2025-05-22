@@ -36,7 +36,7 @@ export class HttpTransactionProviderService {
     )
       .pipe(
         map((response: ApiTransactionResponse) => this.returnResponseData(response)),
-        catchError(this.handleError)
+        catchError(this.authService.handleError)
       )
   }
 
@@ -56,7 +56,7 @@ export class HttpTransactionProviderService {
     )
       .pipe(
         map((response: ApiTransactionResponse) => this.returnResponseData(response)),
-        catchError(this.handleError)
+        catchError(this.authService.handleError)
       )
   }
 
@@ -66,7 +66,7 @@ export class HttpTransactionProviderService {
     )
       .pipe(
         map((response: ApiTransactionResponse) => this.returnResponseData(response)),
-        catchError(this.handleError)
+        catchError(this.authService.handleError)
       )
   }
 
@@ -76,7 +76,7 @@ export class HttpTransactionProviderService {
     )
       .pipe(
         map((response: ApiTransactionResponse) => this.returnResponseData(response)),
-        catchError(this.handleError)
+        catchError(this.authService.handleError)
       )
   }
 
@@ -86,7 +86,7 @@ export class HttpTransactionProviderService {
     )
     .pipe(
       map((response: ApiTransactionResponse) => this.returnResponseData(response)),
-      catchError(this.handleError)
+      catchError(this.authService.handleError)
     )
   }
 
@@ -96,17 +96,12 @@ export class HttpTransactionProviderService {
     )
     .pipe(
       map((response: any) => this.returnResponseData(response)),
-      catchError(this.handleError)
+      catchError(this.authService.handleError)
     )
   }
 
   private returnResponseData(response: any) {
-    console.log("return response data: ", response)
-    return response;
-  }
 
-  private handleError(error: any) {
-    console.log("handle error: ", error)
-    return throwError(() => new Error(error.message));
+    return response;
   }
 }
