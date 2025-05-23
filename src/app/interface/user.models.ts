@@ -21,6 +21,21 @@ export interface TokenResponse {
     user: User
 }
 
+export interface UserResponse {
+    _id: string
+    username: string
+    email: string
+    role: string
+    created_at: string
+    updated_at: string
+}
+
+export interface ApiUserResponse {
+    body: UserResponse
+    message: string;
+    success: boolean;
+}
+
 export interface ApiAuthRespose {
     body: TokenResponse
     message: string;

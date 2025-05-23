@@ -12,6 +12,8 @@ export class AuthService {
   private currentUser$: Observable<User | null>
   private tokenKey = "token_key"
   private userId = "user_id"
+  private username = "username"
+  private email = "email"
 
   private router = inject(Router)
 
@@ -29,6 +31,14 @@ export class AuthService {
     return localStorage.getItem(this.userId)
   }
 
+  getUsername() {
+    return localStorage.getItem(this.username)
+  }
+
+  getEmail() {
+    return localStorage.getItem(this.email)
+  }
+
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
@@ -36,6 +46,9 @@ export class AuthService {
   logout(): void {
 
     localStorage.removeItem(this.tokenKey)
+    localStorage.removeItem(this.userId)
+    localStorage.removeItem(this.username)
+    localStorage.removeItem(this.email)
     this.currentUserSubject.next(null)
     this.router.navigate(['/Login'])
   }
@@ -44,6 +57,8 @@ export class AuthService {
 
     localStorage.setItem(this.tokenKey, response.body.token)
     localStorage.setItem(this.userId, response.body.user._id)
+    localStorage.setItem(this.username, response.body.user.username)
+    localStorage.setItem(this.email, response.body.user.email)
 
     this.currentUserSubject.next(response.body.user)
 

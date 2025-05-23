@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ApiAuthRespose, LoginRequest, RegisterRequest, User } from '../interface/user.models';
+import { ApiAuthRespose, ApiUserResponse, LoginRequest, RegisterRequest, User } from '../interface/user.models';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { AuthService } from '../shared/auth/auth.service';
 
@@ -34,5 +34,16 @@ export class HttpAuthProviderService {
       )
   }
 
-  
+  public getUserDetailByEmail() {
+    return this.http.get<ApiUserResponse>(this.apiUrl + this.usersEndpoint + "?email=" + this.authService.getEmail())
+      .pipe(
+          map((response: ApiUserResponse) => this.returnResponseData(response)),
+          catchError(this.authService.handleLoginError)
+        )
+  }
+
+  private returnResponseData(response: any) {
+
+    return response;
+  }
 }

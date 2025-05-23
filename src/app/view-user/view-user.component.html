@@ -1,0 +1,52 @@
+<div class="container-xl">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 mb-2 mb-md-0">
+            <h4 class="mb-0"><b>View User</b></h4>
+          </div>
+          <div class="col-md-6 col-sm-12 text-md-end text-center">
+            <a href="#" routerLink="/Home" class="btn btn-success back">
+              <i class="fas fa-arrow-circle-left"></i> Back
+            </a>
+          </div>
+        </div>
+      </div>
+      @if (userDetail?._id) {
+      <table class="table table-striped table-hover table-bordered table-content">
+        <tbody>
+          <tr>
+            <td class="col-4 col-sm-3"><label><b>Id</b></label></td>
+            <td class="col-8 col-sm-9"><span>{{ userDetail?._id }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Username</b></label></td>
+            <td><span>{{ userDetail?.username }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Email</b></label></td>
+            <td><span>{{ userDetail?.email }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Role</b></label></td>
+            <td><span>{{ userDetail?.role }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Created at</b></label></td>
+            <td><span>{{ userDetail?.created_at }}</span></td>
+          </tr>
+          <tr>
+            <td><label><b>Updated at</b></label></td>
+            <td><span>{{ userDetail?.updated_at }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+      }@else {
+      <div class="d-flex justify-content-center my-4">
+        <app-loading></app-loading>
+      </div>
+      }
+    </div>
+  </div>
+</div>

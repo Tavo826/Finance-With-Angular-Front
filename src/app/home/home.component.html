@@ -91,7 +91,7 @@
             }@else {
             <app-loading></app-loading>
             }
-            @if (totalTransactions > 10) {
+            @if (totalTransactions > limit) {
                 <div class="d-flex justify-content-end">
                     <ngb-pagination 
                     [collectionSize]="totalTransactions" 

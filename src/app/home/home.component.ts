@@ -21,7 +21,7 @@ export class HomeComponent {
   transactionList: TransactionResponse[] = []
   totalTransactions = 0
   page = 1
-  limit = 10
+  limit = 20
   years: number[] = []
   filterVisible = false
   selectedYear!: number
