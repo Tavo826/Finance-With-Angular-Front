@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from './shared/auth/auth.service';
+import { User } from './interface/user.models';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +10,34 @@ import { AuthService } from './shared/auth/auth.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 
   username = ""
   email = ""
+  user: User | null
+  isLoggedIn = false
+
+  private userSubscription: Subscription = new Subscription()
 
   constructor(private router: Router, private service: AuthService) {
-    this.username = service.getUsername()!
-    this.email = service.getEmail()!
+
+    this.user = service.getCurrentUserValue()
+    this.username = this.user?.username!
+    this.email = this.user?.email!
+    this.isLoggedIn = service.isLoggedIn()
+  }
+
+  ngOnInit() {
+    this.userSubscription = this.service.getCurrentUser().subscribe(user => {
+      this.user = user
+      this.username = user?.username || ""
+      this.email = user?.email || ""
+      this.isLoggedIn = this.service.isLoggedIn()
+    })
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe()
   }
 
   title = 'personal-finance';

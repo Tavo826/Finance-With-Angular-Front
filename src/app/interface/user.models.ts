@@ -5,6 +5,11 @@ export interface User {
     role: string
 }
 
+export interface UserRequest {
+    username: string
+    email: string
+}
+
 export interface LoginRequest {
     email: string
     password: string
@@ -21,11 +26,7 @@ export interface TokenResponse {
     user: User
 }
 
-export interface UserResponse {
-    _id: string
-    username: string
-    email: string
-    role: string
+export interface UserResponse extends User {
     created_at: string
     updated_at: string
 }

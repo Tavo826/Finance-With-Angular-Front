@@ -1,0 +1,73 @@
+<div class="container-xl">
+    <div class="container-error">{{errores}}</div>
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-2 mb-md-0">
+                        <h4 class="mb-0"><b>Update Profile</b></h4>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-md-end text-center">
+                        <a href="#" routerLink="/ViewUser" class="btn btn-success back">
+                            <i class="fas fa-arrow-circle-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @if (form.controls.username.value != "") {
+                <form (submit)="EditUser(form.valid)" [formGroup]="form">
+                    <div class="table-content">
+
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Username" class="form-label">Username<span
+                                    class="requiredStar">*</span></label>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <input type="text" class="form-control" id="Username" required maxlength="255"
+                                [formControl]="form.controls.username">
+                            <div *ngIf="form.controls.username.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
+                                <div [hidden]="!form.controls.username.errors['required']">
+                                    Username is required
+                                </div>
+                                <div [hidden]="!form.controls.username.errors['minlength']">
+                                    Username must be at least 3 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Email" class="form-label">Email<span
+                                    class="requiredStar">*</span></label>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <input type="email" class="form-control" id="Description" required maxlength="255"
+                                [formControl]="form.controls.email">
+                            <div *ngIf="form.controls.email.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
+                                <div [hidden]="!form.controls.email.errors['required']">
+                                    Email is required
+                                </div>
+                                <div [hidden]="!form.controls.email.errors['email']">
+                                    Email must be valid
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    </div>
+                    <div class="table-footer">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+            }@else {
+                <div class="loading-container text-center py-5">
+                    <app-loading></app-loading>
+                </div>
+            }            
+        </div>
+    </div>
+</div>

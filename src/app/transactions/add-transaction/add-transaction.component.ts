@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
-import { TransactionRequest } from '../interface/transaction.models';
+import { HttpTransactionProviderService } from '../../service/http-transaction-provider.service';
+import { TransactionRequest } from '../../interface/transaction.models';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../shared/auth/auth.service';
+import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-add-transaction',
@@ -39,7 +39,7 @@ export class AddTransactionComponent {
     if (this.form.invalid)  return
 
     let transaction = this.form.value as TransactionRequest;
-    transaction.user_id = this.authService.getUserId()!
+    transaction.user_id = this.authService.getCurrentUserValue()?._id!
     this.httpProvider.saveTransaction(transaction).subscribe({
       next: () => {
         this.router.navigate(['Home'])

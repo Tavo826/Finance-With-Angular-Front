@@ -11,9 +11,6 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>
   private currentUser$: Observable<User | null>
   private tokenKey = "token_key"
-  private userId = "user_id"
-  private username = "username"
-  private email = "email"
 
   private router = inject(Router)
 
@@ -23,49 +20,41 @@ export class AuthService {
     this.currentUser$ = this.currentUserSubject.asObservable()
   }
 
-  getToken(): string | null {
+  getToken (): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
-  getUserId(): string | null {
-    return localStorage.getItem(this.userId)
-  }
-
-  getUsername() {
-    return localStorage.getItem(this.username)
-  }
-
-  getEmail() {
-    return localStorage.getItem(this.email)
-  }
-
-  isLoggedIn(): boolean {
+  isLoggedIn = (): boolean => {
+    console.log("IsLoggedIn: ", !!this.getToken())
     return !!this.getToken();
   }
 
-  logout(): void {
+  logout = (): void => {
 
     localStorage.removeItem(this.tokenKey)
-    localStorage.removeItem(this.userId)
-    localStorage.removeItem(this.username)
-    localStorage.removeItem(this.email)
     this.currentUserSubject.next(null)
     this.router.navigate(['/Login'])
   }
 
-  handleAuthentication(response: ApiAuthRespose): ApiAuthRespose {
+  getAuthHeaders() {
+    const token = this.getToken();
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+  }
+
+  handleAuthentication (response: ApiAuthRespose): ApiAuthRespose {
 
     localStorage.setItem(this.tokenKey, response.body.token)
-    localStorage.setItem(this.userId, response.body.user._id)
-    localStorage.setItem(this.username, response.body.user.username)
-    localStorage.setItem(this.email, response.body.user.email)
 
     this.currentUserSubject.next(response.body.user)
 
     return response
   }
 
-  handleLoginError(error: any) {
+  handleLoginError (error: any) {
     let errorMessage = "An error ocurred in the request"
 
     if (error.error instanceof ErrorEvent) {
@@ -82,7 +71,7 @@ export class AuthService {
     return throwError(() => new Error(errorMessage))
   }
 
-  handleError(error: any) {
+  handleError = (error: any) => {
     let errorMessage = "An error ocurred in the request"
 
     if (error.error instanceof ErrorEvent) {
@@ -90,12 +79,20 @@ export class AuthService {
     } else if (error.status) {
       errorMessage = `Error ${error.status}: ${error.error?.error || error.statusText}`
 
-      if (error.status === 401 && this.getToken()) {
+      if (error.status === 401) {
         this.logout()
       }
     }
 
     return throwError(() => new Error(errorMessage))
+  }
+
+  getCurrentUser (): Observable<User | null> {
+    return this.currentUser$
+  }
+
+  getCurrentUserValue (): User | null {
+    return this.currentUserSubject.value
   }
 
   private getUserFromStorage(): User | null {

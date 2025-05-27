@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
+import { HttpTransactionProviderService } from '../../service/http-transaction-provider.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ApiTransactionResponse, TransactionRequest } from '../interface/transaction.models';
+import { ApiTransactionResponse, TransactionRequest } from '../../interface/transaction.models';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from "../shared/loading/loading.component";
-import { AuthService } from '../shared/auth/auth.service';
+import { LoadingComponent } from "../../shared/loading/loading.component";
+import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-edit-transaction',
@@ -68,7 +68,7 @@ export class EditTransactionComponent {
     
     if (isValid) {
       let transaction = this.form.value as TransactionRequest;
-      transaction.user_id = this.authService.getUserId()!
+      transaction.user_id = this.authService.getCurrentUserValue()?._id!
       this.httpProvider.updateTransaction(this.transactionId, transaction).subscribe(() => {
         this.router.navigate(['Home'])
       })

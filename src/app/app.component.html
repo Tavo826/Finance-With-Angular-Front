@@ -1,15 +1,17 @@
 <nav class="navbar fixed-top navbar-expand-md navbar-light white double-nav scrolling-navbar">
   <div class="toolbar" role="banner">
 
-    <button class="menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu">
-      <i class="fas fa-bars"></i>
-    </button>
+    @if (isLoggedIn) {
+      <button class="menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu">
+        <i class="fas fa-bars"></i>
+      </button>
+    }
     
     <div class="col-sm-6">
-      <h4><i class='fas fa-home' (click)="HomeClick()"></i></h4>
+      <h4><i class='fas fa-home home-icon' (click)="HomeClick()"></i></h4>
     </div>
     <div class="col-sm-6">
-      <span class="transaction"><b><i class='fas fa-user'></i> Transaction Management</b></span>
+      <span class="transaction-title"><b>Transaction Management</b></span>
     </div>
   </div>
 </nav>
@@ -35,11 +37,6 @@
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="ViewUser($event)" data-bs-dismiss="offcanvas">
           <i class="fas fa-eye me-2"></i> View profile
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" (click)="HomeClick()" data-bs-dismiss="offcanvas">
-          <i class="fas fa-edit me-2"></i> Edit profile
         </a>
       </li>
       <li class="nav-item">

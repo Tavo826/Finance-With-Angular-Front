@@ -25,7 +25,19 @@
     box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
 }
 
-/* Responsive width adjustments */
+.table-footer {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.table-footer .btn {
+    color: #fff;
+    width: 100px;
+    border-radius: 2px;
+    font-size: 15px !important;
+    text-transform: uppercase;
+}
+
 @media (min-width: 1200px) {
     .container-xl {
         width: 50%;
@@ -82,6 +94,11 @@
     .table-title h4 {
         font-size: 1.2rem;
     }
+
+    .table-footer .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
 
 .table-title .back {
@@ -106,7 +123,6 @@
     color: #0d6efd;
 }
 
-/* Card view styling for mobile */
 .card {
     background: #3f3d3d;
     color: #fff;
@@ -124,7 +140,6 @@
     margin: 0 2px;
 }
 
-/* Custom responsive adjustments */
 @media (max-width: 768px) {
     .table-title h4 {
         font-size: 1.2rem;
@@ -140,21 +155,18 @@
     }
 }
 
-/* For small screen tables */
 @media (max-width: 992px) {
     .table-responsive-sm {
         overflow-x: auto;
     }
 }
 
-/* Improve loading component display */
 app-loading {
     display: flex;
     justify-content: center;
     padding: 30px 0;
 }
 
-/* Make error message container stand out */
 .container-error {
     color: #f44336;
     background-color: #3f3d3d;

@@ -11,7 +11,7 @@ export interface TransactionRequest {
 }
 
 export interface TransactionResponse extends TransactionRequest {
-    _id: number;
+    _id: string;
 }
 
 export interface ApiTransactionResponseList {

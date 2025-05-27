@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { LoadingComponent } from '../shared/loading/loading.component';
-import { HttpAuthProviderService } from '../service/http-auth-provider.service';
-import { ApiUserResponse, UserResponse } from '../interface/user.models';
+import { LoadingComponent } from '../../shared/loading/loading.component';
+import { HttpAuthProviderService } from '../../service/http-auth-provider.service';
+import { ApiUserResponse, UserResponse } from '../../interface/user.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-user',
@@ -12,6 +13,7 @@ import { ApiUserResponse, UserResponse } from '../interface/user.models';
 })
 export class ViewUserComponent {
 
+  router = inject(Router)
   httpProvider = inject(HttpAuthProviderService)
 
   userDetail: UserResponse | undefined
@@ -23,7 +25,7 @@ export class ViewUserComponent {
   }
 
   getUserDetailByEmail() {
-    this.httpProvider.getUserDetailByEmail().subscribe({
+    this.httpProvider.getUserDetailById().subscribe({
       next: (data: ApiUserResponse) => {
         if (data != null && data.body != null) {
           this.userDetail = data.body
@@ -34,5 +36,9 @@ export class ViewUserComponent {
         this.errors = error
       }
     })
+  }
+
+  EditUser() {
+    this.router.navigate(['EditUser', this.userDetail?._id])
   }
 }

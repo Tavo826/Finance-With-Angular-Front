@@ -41,6 +41,9 @@
             <td><span>{{ userDetail?.updated_at }}</span></td>
           </tr>
         </tbody>
+        <div class="table-footer">
+          <button type="button" class="btn btn-success" (click)="EditUser()">Edit User</button>
+        </div>
       </table>
       }@else {
       <div class="d-flex justify-content-center my-4">

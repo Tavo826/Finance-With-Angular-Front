@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { ApiTransactionResponse, TransactionResponse } from '../interface/transaction.models';
+import { ApiTransactionResponse, TransactionResponse } from '../../interface/transaction.models';
 import { ActivatedRoute } from '@angular/router';
-import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
+import { HttpTransactionProviderService } from '../../service/http-transaction-provider.service';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from "../shared/loading/loading.component";
+import { LoadingComponent } from "../../shared/loading/loading.component";
 
 @Component({
   selector: 'app-view-transaction',

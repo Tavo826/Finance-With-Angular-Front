@@ -7,11 +7,11 @@ import { catchError, Observable, throwError } from "rxjs";
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     
-    constructor(private authSrevice: AuthService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        const token = this.authSrevice.getToken()
+        const token = this.authService.getToken()
 
         if (token) {
             request = request.clone({
@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
             catchError((error: HttpErrorResponse) => {
 
                 if (error.status === 401) {
-                    this.authSrevice.logout()
+                    this.authService.logout()
                     this.router.navigate(['/Login'])
                 }
                 return throwError(() => error)

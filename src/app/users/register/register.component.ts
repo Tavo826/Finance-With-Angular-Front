@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpAuthProviderService } from '../service/http-auth-provider.service';
+import { HttpAuthProviderService } from '../../service/http-auth-provider.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from '../shared/loading/loading.component';
-import { RegisterRequest } from '../interface/user.models';
+import { LoadingComponent } from '../../shared/loading/loading.component';
+import { RegisterRequest } from '../../interface/user.models';
 
 @Component({
   selector: 'app-register',

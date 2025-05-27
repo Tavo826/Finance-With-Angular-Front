@@ -17,22 +17,13 @@ export class HttpTransactionProviderService {
 
   constructor() { }
 
-  private getAuthHeaders() {
-  const token = this.authService.getToken();
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  };
-}
-
   public getAllTransaction(page: number, limit: number): Observable<ApiTransactionResponse> {
 
     return this.http.get<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + 
       "?page=" + page + 
       "&limit=" + limit +
-      "&user_id=" + this.authService.getUserId(),
-      this.getAuthHeaders()
+      "&user_id=" + this.authService.getCurrentUserValue()?._id,
+      this.authService.getAuthHeaders()
     )
       .pipe(
         map((response: ApiTransactionResponse) => this.returnResponseData(response)),
@@ -47,12 +38,12 @@ export class HttpTransactionProviderService {
     month: number
   ): Observable<ApiTransactionResponse> {
     return this.http.get<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint +
-        "filter?user_id=" + this.authService.getUserId() +
+        "filter?user_id=" + this.authService.getCurrentUserValue()?._id +
         "&page=" + page + 
         "&limit=" + limit +
         "&year=" + year + 
         "&month=" + month,
-      this.getAuthHeaders()
+      this.authService.getAuthHeaders()
     )
       .pipe(
         map((response: ApiTransactionResponse) => this.returnResponseData(response)),
@@ -60,9 +51,9 @@ export class HttpTransactionProviderService {
       )
   }
 
-  public getTransactionById(id: number): Observable<ApiTransactionResponse> {
+  public getTransactionById(id: string): Observable<ApiTransactionResponse> {
     return this.http.get<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + id,
-      this.getAuthHeaders()
+      this.authService.getAuthHeaders()
     )
       .pipe(
         map((response: ApiTransactionResponse) => this.returnResponseData(response)),
@@ -72,7 +63,7 @@ export class HttpTransactionProviderService {
 
   public saveTransaction(model: TransactionRequest): Observable<ApiTransactionResponse> {
     return this.http.post<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint, model,
-      this.getAuthHeaders()
+      this.authService.getAuthHeaders()
     )
       .pipe(
         map((response: ApiTransactionResponse) => this.returnResponseData(response)),
@@ -80,9 +71,9 @@ export class HttpTransactionProviderService {
       )
   }
 
-  public updateTransaction(id: number, model: TransactionRequest): Observable<ApiTransactionResponse> {
+  public updateTransaction(id: string, model: TransactionRequest): Observable<ApiTransactionResponse> {
     return this.http.put<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + id, model,
-      this.getAuthHeaders()
+      this.authService.getAuthHeaders()
     )
     .pipe(
       map((response: ApiTransactionResponse) => this.returnResponseData(response)),
@@ -90,9 +81,9 @@ export class HttpTransactionProviderService {
     )
   }
 
-  public deleteTransaction(id: number): Observable<any> {
+  public deleteTransaction(id: string): Observable<any> {
     return this.http.delete<any>(this.apiUrl + this.transactionsEndpoint + id,
-      this.getAuthHeaders()
+      this.authService.getAuthHeaders()
     )
     .pipe(
       map((response: any) => this.returnResponseData(response)),

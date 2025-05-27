@@ -6,9 +6,11 @@
   height: 60px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #3f3d3d;
   color: white;
   font-weight: 600;
+  
 }
 
 .toolbar i {
@@ -55,4 +57,66 @@
   padding: 1rem;
   border-bottom: 1px solid #dee2e6;
   background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    height: 55px;
+    padding: 0 10px;
+  }
+  
+  .transaction-title {
+    font-size: 0.9rem;
+    margin: 0 10px;
+  }
+  
+  .toolbar i.home-icon {
+    font-size: 1.3rem;
+    margin-left: 10px;
+  }
+  
+  .menu-toggle {
+    font-size: 1.1rem;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 576px) {
+  .toolbar {
+    height: 50px;
+    padding: 0 8px;
+  }
+  
+  .transaction-title {
+    font-size: 0.8rem;
+    margin: 0 8px;
+  }
+  
+  .toolbar i.home-icon {
+    font-size: 1.2rem;
+    margin-left: 8px;
+  }
+  
+  .menu-toggle {
+    font-size: 1rem;
+    padding: 4px;
+  }
+}
+
+
+@media (max-width: 360px) {
+  .toolbar {
+    height: 45px;
+    padding: 0 5px;
+  }
+  
+  .toolbar i.home-icon {
+    font-size: 1.1rem;
+    margin-left: 5px;
+  }
+  
+  .menu-toggle {
+    font-size: 0.9rem;
+    padding: 3px;
+  }
 }
