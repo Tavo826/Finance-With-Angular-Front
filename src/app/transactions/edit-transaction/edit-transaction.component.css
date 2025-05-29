@@ -125,7 +125,6 @@
     padding-left: 5px;
 }
 
-/* Form validation styling */
 .validationError {
     font-size: 0.85rem;
     padding: 8px;
@@ -136,14 +135,12 @@
     color: #fff;
 }
 
-/* Responsive form label adjustments */
 @media (max-width: 767px) {
     .form-label {
         margin-bottom: 0.25rem;
     }
 }
 
-/* Container for error messages */
 .container-error {
     color: #f44336;
     background-color: #9e9a9a;
@@ -154,7 +151,6 @@
     font-weight: bold;
 }
 
-/* Loading container styling */
 .loading-container {
     min-height: 150px;
     display: flex;

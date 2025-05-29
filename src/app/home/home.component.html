@@ -18,6 +18,66 @@
                         </button>
                         <div class="filter-panel shadow p-3 rounded"
                         *ngIf="filterVisible">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Filter type:</label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="filterType" id="dateFilter" value="date" [(ngModel)]="selectedFilterType" (change)="onFilterTypeChange()">
+                                    <label for="dateFilter" class="btn btn-outline-primary">
+                                        <i class="fas fa-calendar-alt"></i> Date
+                                    </label>
+
+                                    <input type="radio" class="btn-check" name="filterType" id="subjectFilter" value="subject" [(ngModel)]="selectedFilterType" (change)="onFilterTypeChange()">
+                                    <label for="subjectFilter" class="btn btn-outline-primary">
+                                        <i class="fas fa-tags"></i> Subject
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div *ngIf="selectedFilterType === 'date'" class="mb-3">
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <label class="form-label">Year:</label>
+                                        <select class="form-select" [(ngModel)]="selectedYear">
+                                            <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Month:</label>
+                                        <select class="form-select" [(ngModel)]="selectedMonth">
+                                            <option *ngFor="let m of months.keys()" [value]="m">{{ m }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="selectedFilterType === 'subject'" class="mb-3">
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <label class="form-label">Subject:</label>
+                                        <select class="form-select" [(ngModel)]="selectedSubject">
+                                            <option *ngFor="let subject of transactionSubjects" [value]="subject">{{ subject }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Person/Business:</label>
+                                        <input type="text" [(ngModel)]="selectedPersonBusiness" class="form-control" autocapitalize="sentences" id="PersonOrBusiness" required maxlength="255">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 justify-content-end">
+                                <button class="btn btn-secondary" (click)="clearFilter()">
+                                    <i class="fas fa-undo"></i> Reset
+                                </button>
+                                <button class="btn btn-primary" (click)="applyFilter()">
+                                    <i class="fas fa-search"></i> Apply
+                                </button>
+                            </div>
+
+
+
+                            <!--
                             <div class="d-flex align-items-center">
                                 <select class="form-select me-2"
                                 [(ngModel)]="selectedYear">
@@ -37,6 +97,7 @@
                                     Reset
                                 </button>
                             </div>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -56,7 +117,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-group-divider">
                         <tr *ngFor="let transaction of transactionList" class="center-align">
                             <td>{{ transaction.amount.toLocaleString() }}</td>
                             <td

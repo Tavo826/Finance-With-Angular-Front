@@ -23,10 +23,18 @@ export class HomeComponent {
   page = 1
   limit = 20
   years: number[] = []
+
   filterVisible = false
+
   selectedYear!: number
   selectedMonth!: string
   months = new Map<string, number>()
+
+  selectedFilterType: string = 'date'
+  selectedSubject: string = ""
+  selectedPersonBusiness: string = ""
+  transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
+
   isFilterActive = false
 
   router = inject(Router)
@@ -101,6 +109,13 @@ export class HomeComponent {
     this.filterVisible = !this.filterVisible
   }
 
+  onFilterTypeChange() {
+    this.selectedYear = new Date().getFullYear()
+    this.selectedMonth = ""
+    this.selectedSubject = ""
+    this.selectedPersonBusiness = ""
+  }
+
   applyFilter() {
 
     this.isLoading = true
@@ -111,27 +126,44 @@ export class HomeComponent {
 
   loadFilteredData(page: number) {
 
-    let selectedMonthKey = this.months.get(this.selectedMonth) ?? 0
-
     this.isFilterActive = true
 
-    this.httpProvider.getFilteredTransaction(
+    if (this.selectedFilterType === 'date') {
+      this.loadFilteredByDate(page)
+    } else if (this.selectedFilterType === 'subject') {
+      this.loadFilteredBySubject(page)
+    }
+  }
+
+  loadFilteredByDate(page: number) {
+
+    let selectedMonthKey = this.months.get(this.selectedMonth) ?? 0
+
+    this.httpProvider.getAllTransactionByDate(
       page, 
       this.limit, 
       this.selectedYear, 
       selectedMonthKey).subscribe({
         next: (data: any) => {
-          if (data != null && data.body != null) {
-            var resultData = data.body
-            if (resultData) {
-              this.transactionList = resultData.data
-              this.totalTransactions = resultData.totalDocuments
-              this.isLoading = false
-            }
-          } else{
-            this.transactionList = []
-            this.isLoading = false
-          }
+          this.handleFilteredResponse(data)
+        },
+        error: err => {
+          this.errors = err;
+          this.isLoading = false
+        }
+      }
+    )
+  }
+
+  loadFilteredBySubject(page: number) {
+
+    this.httpProvider.getAllTransactionBySubject(
+      page,
+      this.limit,
+      this.selectedSubject,
+      this.selectedPersonBusiness).subscribe({
+        next: (data: any) => {
+          this.handleFilteredResponse(data)
         },
         error: err => {
           this.errors = err;
@@ -140,11 +172,27 @@ export class HomeComponent {
       })
   }
 
+  handleFilteredResponse(data: any) {
+    if (data != null && data.body != null) {
+      var resultData = data.body
+      if (resultData) {
+        this.transactionList = resultData.data
+        this.totalTransactions = resultData.totalDocuments
+        this.isLoading = false
+      }
+    } else{
+      this.transactionList = []
+      this.isLoading = false
+    }
+  }
+
   clearFilter() {
 
-    const currentYear = new Date().getFullYear()
-    this.selectedYear = currentYear
+    this.selectedYear = new Date().getFullYear()
     this.selectedMonth = ""
+    this.selectedSubject = ""
+    this.selectedPersonBusiness = ""
+    this.selectedFilterType = "date"
     this.isFilterActive = false
     this.page = 1
     
@@ -165,6 +213,7 @@ export class HomeComponent {
 
   initializeMonths(): Map<string, number> {
 
+    this.months.set("All Months", 0)
     this.months.set("January", 1)
     this.months.set("February", 2)
     this.months.set("March", 3)

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ApiTransactionResponse, TransactionRequest } from '../interface/transaction.models';
+import { ApiTransactionResponse, ApiTransactionResponseList, TransactionRequest } from '../interface/transaction.models';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -17,28 +17,28 @@ export class HttpTransactionProviderService {
 
   constructor() { }
 
-  public getAllTransaction(page: number, limit: number): Observable<ApiTransactionResponse> {
+  public getAllTransaction(page: number, limit: number): Observable<ApiTransactionResponseList> {
 
-    return this.http.get<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + 
+    return this.http.get<ApiTransactionResponseList>(this.apiUrl + this.transactionsEndpoint + 
       "?page=" + page + 
       "&limit=" + limit +
       "&user_id=" + this.authService.getCurrentUserValue()?._id,
       this.authService.getAuthHeaders()
     )
       .pipe(
-        map((response: ApiTransactionResponse) => this.returnResponseData(response)),
+        map((response: ApiTransactionResponseList) => this.returnResponseData(response)),
         catchError(this.authService.handleError)
       )
   }
 
-  public getFilteredTransaction(
+  public getAllTransactionByDate(
     page: number,
     limit: number,
     year: number,
     month: number
-  ): Observable<ApiTransactionResponse> {
-    return this.http.get<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint +
-        "filter?user_id=" + this.authService.getCurrentUserValue()?._id +
+  ): Observable<ApiTransactionResponseList> {
+    return this.http.get<ApiTransactionResponseList>(this.apiUrl + this.transactionsEndpoint +
+        "filter_date?user_id=" + this.authService.getCurrentUserValue()?._id +
         "&page=" + page + 
         "&limit=" + limit +
         "&year=" + year + 
@@ -46,7 +46,27 @@ export class HttpTransactionProviderService {
       this.authService.getAuthHeaders()
     )
       .pipe(
-        map((response: ApiTransactionResponse) => this.returnResponseData(response)),
+        map((response: ApiTransactionResponseList) => this.returnResponseData(response)),
+        catchError(this.authService.handleError)
+      )
+  }
+
+  public getAllTransactionBySubject(
+    page: number,
+    limit: number,
+    subject: string,
+    personOrBusiness: string
+  ): Observable<ApiTransactionResponseList> {
+    return this.http.get<ApiTransactionResponseList>(this.apiUrl + this.transactionsEndpoint +
+        "filter_subject?user_id=" + this.authService.getCurrentUserValue()?._id +
+        "&page=" + page + 
+        "&limit=" + limit +
+        "&subject=" + subject +
+        "&person_business=" + personOrBusiness,
+        this.authService.getAuthHeaders()
+    )
+      .pipe(
+        map((response: ApiTransactionResponseList) => this.returnResponseData(response)),
         catchError(this.authService.handleError)
       )
   }

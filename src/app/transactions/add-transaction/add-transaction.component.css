@@ -5,7 +5,6 @@
     margin-bottom: 30px;
 }
 
-/* Responsive width adjustments */
 @media (min-width: 1200px) {
     .container-xl {
         width: 50%;
@@ -126,7 +125,6 @@
     padding-left: 5px;
 }
 
-/* Form validation styling */
 .validationError {
     font-size: 0.85rem;
     padding: 8px;
@@ -137,14 +135,12 @@
     color: #fff;
 }
 
-/* Responsive form label adjustments */
 @media (max-width: 767px) {
     .form-label {
         margin-bottom: 0.25rem;
     }
 }
 
-/* Container for error messages */
 .container-error {
     color: #f44336;
     background-color: #9e9a9a;

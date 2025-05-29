@@ -1,4 +1,3 @@
-/* home.component.css (modificado) */
 .income {
     color: green;
 }
@@ -17,14 +16,14 @@
 
 .table-responsive {
     margin: 20px 0;
-    overflow-x: auto; /* Asegura scroll horizontal */
-    -webkit-overflow-scrolling: touch; /* Mejora el scroll en iOS */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .filter-panel {
     position: absolute;
-    top: 100%;                /* justo debajo de los botones */
-    right: 0;                 /* alineado a la derecha */
+    top: 100%;                
+    right: 0;                 
     background: white;
     border: 1px solid #ddd;
     z-index: 10;
@@ -32,7 +31,59 @@
     animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Animación suave */
+.filter-panel .btn-check + .btn-outline-primary {
+    background-color: #8baee1;
+    border-color: #8baee1;
+    color: white;
+}
+
+.filter-panel .btn-check:checked + .btn-outline-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+.filter-panel .btn-outline-primary {
+    border-color: #0d6efd;
+    color: #0d6efd;
+}
+
+.filter-panel .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+.filter-panel .form-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: #495057;
+}
+
+.filter-panel .form-label.fw-bold {
+    margin-right: 79%;
+    font-weight: 600;
+    color: #212529;
+}
+
+.filter-panel .form-select {
+    font-size: 0.9rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.filter-panel .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+
+.filter-panel .btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+}
+
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -45,7 +96,7 @@
     box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
 }
 
-/* For mobile devices */
+
 @media (max-width: 576px) {
     .table-wrapper {
         padding: 15px;
@@ -56,24 +107,38 @@
         margin-top: 10%;
     }
     
-    /* Asegura que la tabla mantenga su estructura en dispositivos pequeños */
     .table-content {
-        min-width: 800px; /* Ancho mínimo para asegurar scroll horizontal */
+        min-width: 800px;
     }
     
-    /* Mejora la visualización de los botones en móvil */
     .btn-group-sm .btn {
         padding: 0.2rem 0.3rem;
     }
 
     .filter-panel {
-        width: 100%;
-        left: 0;
-        right: 0;
+        width: 95%;
+        left: 2.5%;
+        right: 2.5%;
+        min-width: auto;
+        max-width: none;
     }
+
     .filter-panel .form-select,
     .filter-panel .btn {
     margin-bottom: 0.5rem;
+    }
+
+    .filter-panel .btn-group {
+        flex-direction: column;
+    }
+    
+    .filter-panel .btn-group .btn {
+        border-radius: 4px !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .filter-panel .btn-group .btn:last-child {
+        margin-bottom: 0;
     }
 }
 
@@ -124,10 +189,13 @@
     color: #0d6efd;
 }
 
-/* Custom responsive adjustments */
 @media (max-width: 768px) {
     .table-title h4 {
         font-size: 1.2rem;
+    }
+
+    .filter-panel {
+        min-width: 350px;
     }
 }
 
@@ -142,14 +210,13 @@
     }
 }
 
-/* Improve loading component display */
 app-loading {
     display: flex;
     justify-content: center;
     padding: 30px 0;
 }
 
-/* Make error message container stand out */
+
 .container-error {
     color: #f44336;
     background-color: #3f3d3d;
