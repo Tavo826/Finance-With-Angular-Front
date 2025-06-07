@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ApiAuthRespose, ApiUserResponse, EditUserRequest, LoginRequest, RegisterRequest, User, UserRequest } from '../interface/user.models';
-import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
+import { ApiAuthRespose, ApiUserResponse, LoginRequest, RegisterRequest, User, UserRequest } from '../interface/user.models';
+import { catchError, map, Observable } from 'rxjs';
 import { AuthService } from '../shared/auth/auth.service';
 
 @Injectable({
@@ -44,7 +44,8 @@ export class HttpAuthProviderService {
         )
   }
 
-  public updateUser(id: string, model: EditUserRequest) {
+  public updateUser(id: string, model: FormData) {
+
     return this.http.put<ApiUserResponse>(this.apiUrl + this.usersEndpoint + id, model,
       this.authService.getAuthHeaders()
     )

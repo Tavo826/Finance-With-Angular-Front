@@ -11,10 +11,6 @@ export interface UserRequest {
     email: string
 }
 
-export interface EditUserRequest extends UserRequest {
-    profileImage: any
-}
-
 export interface LoginRequest {
     email: string
     password: string

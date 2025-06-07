@@ -24,14 +24,13 @@ export class ViewUserComponent {
 
   constructor() {
 
-    this.getUserDetailByEmail()
+    this.getUserDetailById()
   }
 
-  getUserDetailByEmail() {
+  getUserDetailById() {
     this.httpProvider.getUserDetailById().subscribe({
       next: (data: ApiUserResponse) => {
         if (data != null && data.body != null) {
-          console.log("User data: ", data)
           this.userDetail = data.body
         }
       },

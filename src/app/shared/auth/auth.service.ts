@@ -86,7 +86,7 @@ export class AuthService {
     } else if (error.status) {
       errorMessage = `Error ${error.status}: ${error.error?.error || error.statusText}`
 
-      if (error.status === 401) {
+      if (error.status === 401 || error.status === 404) {
         this.logout()
       }
     }
