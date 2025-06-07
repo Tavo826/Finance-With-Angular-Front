@@ -25,7 +25,13 @@
 
     <div class="user-section">
       <div class="d-flex align-items-center">
-        <i class="fas fa-user-circle fa-2x me-3"></i>
+        @if (profileImage != "") {
+          <img [src]="profileImage" 
+                alt="Profile image"
+                class="profile-image-display">
+        } @else {
+          <i class="fas fa-user-circle fa-2x me-3"></i>
+        }        
         <div>
           <div><strong>{{ username }}</strong></div>
           <small class="text-muted">{{ email }}</small>

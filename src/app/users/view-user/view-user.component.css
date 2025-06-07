@@ -30,45 +30,19 @@
     text-align: center;
 }
 
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+}
+
 .table-footer .btn {
     color: #fff;
     width: 100px;
     border-radius: 2px;
     font-size: 15px !important;
     text-transform: uppercase;
-}
-
-@media (min-width: 1200px) {
-    .container-xl {
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .container-xl {
-        width: 70%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    .container-xl {
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-@media (max-width: 767px) {
-    .container-xl {
-        width: 95%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10%;
-    }
 }
 
 .table-title {
@@ -78,27 +52,6 @@
     padding: 16px 20px;
     margin: -15px -15px 10px;
     border-radius: 3px 3px 0 0;
-}
-
-@media (max-width: 576px) {
-    .table-wrapper {
-        padding: 15px;
-        margin-top: 15px;
-    }
-    
-    .table-title {
-        margin: -15px -15px 10px;
-        padding: 12px 15px;
-    }
-    
-    .table-title h4 {
-        font-size: 1.2rem;
-    }
-
-    .table-footer .btn {
-        width: 100%;
-        margin-top: 10px;
-    }
 }
 
 .table-title .back {
@@ -140,27 +93,6 @@
     margin: 0 2px;
 }
 
-@media (max-width: 768px) {
-    .table-title h4 {
-        font-size: 1.2rem;
-    }
-    
-    .table th, .table td {
-        font-size: 0.85rem;
-        padding: 0.5rem;
-    }
-    
-    .btn-group-sm .btn {
-        padding: 0.2rem 0.4rem;
-    }
-}
-
-@media (max-width: 992px) {
-    .table-responsive-sm {
-        overflow-x: auto;
-    }
-}
-
 app-loading {
     display: flex;
     justify-content: center;
@@ -174,4 +106,164 @@ app-loading {
     padding: 5px 10px;
     margin-top: 10px;
     text-align: center;
+}
+
+.profile-image-section {
+    padding: 20px 0;
+    background: #333232;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+
+.profile-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-image-display {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.profile-image-display:hover {
+    transform: scale(1.05);
+}
+
+.profile-image-placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 60px;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.profile-image-placeholder:hover {
+    transform: scale(1.05);
+}
+
+.profile-image-container::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, #28a745, #20c997, #17a2b8, #6f42c1);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.8;
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-xl {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .container-xl {
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .table-responsive-sm {
+        overflow-x: auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .container-xl {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .table-title h4 {
+        font-size: 1.2rem;
+    }
+    
+    .table th, .table td {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+    
+    .btn-group-sm .btn {
+        padding: 0.2rem 0.4rem;
+    }
+
+    .profile-image-section {
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .container-xl {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+    }
+}
+
+@media (max-width: 576px) {
+    .table-wrapper {
+        padding: 15px;
+        margin-top: 15px;
+    }
+    
+    .table-title {
+        margin: -15px -15px 10px;
+        padding: 12px 15px;
+    }
+    
+    .table-title h4 {
+        font-size: 1.2rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .table-footer .btn {
+        width: 100%;
+    }
+
+    .profile-image-display,
+    .profile-image-placeholder {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profile-image-placeholder {
+        font-size: 50px;
+    }
 }

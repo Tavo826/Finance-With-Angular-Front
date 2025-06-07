@@ -1,5 +1,5 @@
 <div class="container-xl">
-    <div class="container-error">{{errores}}</div>
+    <div class="container-error">{{errors}}</div>
     <div class="table-responsive">
         <div class="table-wrapper">
             <div class="table-title">
@@ -18,45 +18,77 @@
                 <form (submit)="EditUser(form.valid)" [formGroup]="form">
                     <div class="table-content">
 
-                    <div class="form-group p-10 row mb-3">
-                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
-                            <label for="Username" class="form-label">Username<span
-                                    class="requiredStar">*</span></label>
-                        </div>
-                        <div class="col-lg-9 col-md-8 col-sm-12">
-                            <input type="text" class="form-control" id="Username" required maxlength="255"
-                                [formControl]="form.controls.username">
-                            <div *ngIf="form.controls.username.errors && isSubmitted"
-                                class="alert alert-danger validationError mt-2">
-                                <div [hidden]="!form.controls.username.errors['required']">
-                                    Username is required
+                        <div class="form-group p-10 mb-3">
+                            <div class="col-lg-3 col-md-4 col-sm-12 mb-12 mb-md-0">
+                                <label class="form-label">Profile image</label>
+                            </div>
+
+                            <div class="col-lg-9 col-md-8 col-sm-12">
+                                <div class="image-preview-container mb-3" *ngIf="imagePreview">
+                                    <img [src]="imagePreview" alt="Profile Preview" class="profile-image-preview">
+                                    <button type="button" class="btn btn-sm btn-danger remove-image-btn" (click)="removeImage()" title="Remove image">
+                                        <i class="fas fa-times"></i>
+                                    </button>
                                 </div>
-                                <div [hidden]="!form.controls.username.errors['minlength']">
-                                    Username must be at least 3 characters long
+
+                                <div class="file-input-container">
+                                    <input type="file" 
+                                        id="profileImage"
+                                        class="form-control file-input"
+                                        accept="image/*"
+                                        (change)="onFileSelected($event)">
+                                    <label for="profileImage" class="file-input-label">
+                                        <i class="fas fa-camera"></i>
+                                        {{ imagePreview ? 'Change image' : 'Select profile image' }}
+                                    </label>
+                                </div>
+
+                                <small class="form-text text-muted">
+                                    Formats Supported: JPEG, PNG, GIF. Maximum size: 5MB
+                                </small>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group p-10 row mb-3">
+                            <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                                <label for="Username" class="form-label">Username<span
+                                        class="requiredStar">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12">
+                                <input type="text" class="form-control" id="Username" required maxlength="255"
+                                    [formControl]="form.controls.username">
+                                <div *ngIf="form.controls.username.errors && isSubmitted"
+                                    class="alert alert-danger validationError mt-2">
+                                    <div [hidden]="!form.controls.username.errors['required']">
+                                        Username is required
+                                    </div>
+                                    <div [hidden]="!form.controls.username.errors['minlength']">
+                                        Username must be at least 3 characters long
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-    
-                    <div class="form-group p-10 row mb-3">
-                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
-                            <label for="Email" class="form-label">Email<span
-                                    class="requiredStar">*</span></label>
-                        </div>
-                        <div class="col-lg-9 col-md-8 col-sm-12">
-                            <input type="email" class="form-control" id="Description" required maxlength="255"
-                                [formControl]="form.controls.email">
-                            <div *ngIf="form.controls.email.errors && isSubmitted"
-                                class="alert alert-danger validationError mt-2">
-                                <div [hidden]="!form.controls.email.errors['required']">
-                                    Email is required
-                                </div>
-                                <div [hidden]="!form.controls.email.errors['email']">
-                                    Email must be valid
+        
+                        <div class="form-group p-10 row mb-3">
+                            <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                                <label for="Email" class="form-label">Email<span
+                                        class="requiredStar">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12">
+                                <input type="email" class="form-control" id="Description" required maxlength="255"
+                                    [formControl]="form.controls.email">
+                                <div *ngIf="form.controls.email.errors && isSubmitted"
+                                    class="alert alert-danger validationError mt-2">
+                                    <div [hidden]="!form.controls.email.errors['required']">
+                                        Email is required
+                                    </div>
+                                    <div [hidden]="!form.controls.email.errors['email']">
+                                        Email must be valid
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
     
                     </div>
                     <div class="table-footer">

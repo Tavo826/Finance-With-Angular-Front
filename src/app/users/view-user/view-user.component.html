@@ -14,41 +14,64 @@
         </div>
       </div>
       @if (userDetail?._id) {
-      <table class="table table-striped table-hover table-bordered table-content">
-        <tbody>
-          <tr>
-            <td class="col-4 col-sm-3"><label><b>Id</b></label></td>
-            <td class="col-8 col-sm-9"><span>{{ userDetail?._id }}</span></td>
-          </tr>
-          <tr>
-            <td><label><b>Username</b></label></td>
-            <td><span>{{ userDetail?.username }}</span></td>
-          </tr>
-          <tr>
-            <td><label><b>Email</b></label></td>
-            <td><span>{{ userDetail?.email }}</span></td>
-          </tr>
-          <tr>
-            <td><label><b>Role</b></label></td>
-            <td><span>{{ userDetail?.role }}</span></td>
-          </tr>
-          <tr>
-            <td><label><b>Created at</b></label></td>
-            <td><span>{{ userDetail?.created_at }}</span></td>
-          </tr>
-          <tr>
-            <td><label><b>Updated at</b></label></td>
-            <td><span>{{ userDetail?.updated_at }}</span></td>
-          </tr>
-        </tbody>
-        <div class="table-footer">
-          <button type="button" class="btn btn-success" (click)="EditUser()">Edit User</button>
+
+        <div class="profile-image-section text-center mb-4">
+          <div class="profile-image-container">
+            @if (userDetail?.profile_image) {
+              <img [src]="userDetail?.profile_image" 
+                    alt="Profile image"
+                    class="profile-image-display"
+                    (error)="onImageError($event)">
+            } @else {
+              <div class="profile-image-placeholder">
+                <i class="fas fa-user"></i>
+              </div>
+            }
+          </div>
         </div>
-      </table>
+
+        <table class="table table-striped table-hover table-bordered table-content">
+          <tbody>
+            <tr>
+              <td class="col-4 col-sm-3"><label><b>Id</b></label></td>
+              <td class="col-8 col-sm-9"><span>{{ userDetail?._id }}</span></td>
+            </tr>
+            <tr>
+              <td><label><b>Username</b></label></td>
+              <td><span>{{ userDetail?.username }}</span></td>
+            </tr>
+            <tr>
+              <td><label><b>Email</b></label></td>
+              <td><span>{{ userDetail?.email }}</span></td>
+            </tr>
+            <tr>
+              <td><label><b>Role</b></label></td>
+              <td><span>{{ userDetail?.role }}</span></td>
+            </tr>
+            <tr>
+              <td><label><b>Created at</b></label></td>
+              <td><span>{{ userDetail?.created_at }}</span></td>
+            </tr>
+            <tr>
+              <td><label><b>Updated at</b></label></td>
+              <td><span>{{ userDetail?.updated_at }}</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-footer">
+          <div class="button-group">
+            <button type="button" class="btn btn-success" (click)="EditUser()">Edit User</button>
+            <button type="button"
+              [swal]="{ title: 'Confirmation', text: 'Delete this User?', showCancelButton: true }"
+              (confirm)="deleteUser(userDetail!)" class="btn btn-danger">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
       }@else {
-      <div class="d-flex justify-content-center my-4">
-        <app-loading></app-loading>
-      </div>
+        <div class="d-flex justify-content-center my-4">
+          <app-loading></app-loading>
+        </div>
       }
     </div>
   </div>

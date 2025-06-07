@@ -59,6 +59,15 @@
   background-color: #f8f9fa;
 }
 
+.profile-image-display {
+  width: 2rem;  /* Equivalente al tamaño fa-2x */
+  height: 2rem;
+  border-radius: 50%; /* Hace la imagen circular */
+  object-fit: cover; /* Mantiene las proporciones y recorta si es necesario */
+  margin-right: 0.75rem; /* Equivalente a me-3 (12px) */
+  border: 2px solid #dee2e6; /* Opcional: borde sutil */
+}
+
 @media (max-width: 768px) {
   .toolbar {
     height: 55px;

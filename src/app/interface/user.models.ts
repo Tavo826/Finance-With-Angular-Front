@@ -3,11 +3,16 @@ export interface User {
     username: string
     email: string
     role: string
+    profile_image?: string
 }
 
 export interface UserRequest {
     username: string
     email: string
+}
+
+export interface EditUserRequest extends UserRequest {
+    profileImage: any
 }
 
 export interface LoginRequest {

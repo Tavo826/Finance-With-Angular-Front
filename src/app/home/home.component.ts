@@ -101,7 +101,9 @@ export class HomeComponent {
           }
         }
       },
-      error: (error: any) => {}
+      error: (error: any) => {
+        this.errors = error
+      }
     })
   }
 

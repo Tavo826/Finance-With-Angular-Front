@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ApiAuthRespose, ApiUserResponse, LoginRequest, RegisterRequest, User, UserRequest } from '../interface/user.models';
+import { ApiAuthRespose, ApiUserResponse, EditUserRequest, LoginRequest, RegisterRequest, User, UserRequest } from '../interface/user.models';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { AuthService } from '../shared/auth/auth.service';
 
@@ -40,11 +40,11 @@ export class HttpAuthProviderService {
     )
       .pipe(
           map((response: ApiUserResponse) => this.returnResponseData(response)),
-          catchError(this.authService.handleLoginError)
+          catchError(this.authService.handleError)
         )
   }
 
-  public updateUser(id: string, model: UserRequest) {
+  public updateUser(id: string, model: EditUserRequest) {
     return this.http.put<ApiUserResponse>(this.apiUrl + this.usersEndpoint + id, model,
       this.authService.getAuthHeaders()
     )
@@ -52,6 +52,17 @@ export class HttpAuthProviderService {
       map((response: any) => this.returnResponseData(response)),
       catchError(this.authService.handleError)
     )
+  }
+
+  public deleteUser(id: string): Observable<any> {
+
+    return this.http.delete<any>(this.apiUrl + this.usersEndpoint + id,
+      this.authService.getAuthHeaders()
+    )
+      .pipe(
+        map((response: any) => this.returnResponseData(response)),
+        catchError(this.authService.handleError)
+      );
   }
 
   private returnResponseData(response: any) {

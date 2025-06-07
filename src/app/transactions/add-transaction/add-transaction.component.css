@@ -135,6 +135,10 @@
     color: #fff;
 }
 
+.capitalize-first-letter::first-letter {
+    text-transform: uppercase;
+}
+
 @media (max-width: 767px) {
     .form-label {
         margin-bottom: 0.25rem;

@@ -77,7 +77,7 @@
                                 <label for="PersonOrBusiness" class="form-label">Person or Business<span class="requiredStar">*</span></label>
                             </div>
                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                <input type="text" class="form-control" autocapitalize="sentences" id="PersonOrBusiness" required maxlength="255"
+                                <input type="text" class="form-control" id="PersonOrBusiness" required maxlength="255"
                                 [formControl]="form.controls.person_business">
                                 <div *ngIf="form.controls.person_business.errors && isSubmitted" class="alert alert-danger validationError mt-2">
                                     <div [hidden]="!form.controls.person_business.errors['required']">
@@ -92,7 +92,7 @@
                                 <label for="Description" class="form-label">Description<span class="requiredStar">*</span></label>
                             </div>
                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                <input type="text" class="form-control" autocapitalize="sentences" id="Description" required maxlength="255"
+                                <input type="text" class="form-control" id="Description" required maxlength="255"
                                 [formControl]="form.controls.description">
                                 <div *ngIf="form.controls.description.errors && isSubmitted" class="alert alert-danger validationError mt-2">
                                     <div [hidden]="!form.controls.description.errors['required']">

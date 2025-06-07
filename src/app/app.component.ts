@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
   username = ""
   email = ""
   user: User | null
+  profileImage = ""
   isLoggedIn = false
 
   private userSubscription: Subscription = new Subscription()
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.user = service.getCurrentUserValue()
     this.username = this.user?.username!
     this.email = this.user?.email!
+    this.profileImage = this.user?.profile_image || ""
     this.isLoggedIn = service.isLoggedIn()
   }
 
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.user = user
       this.username = user?.username || ""
       this.email = user?.email || ""
+      this.profileImage = this.user?.profile_image || ""
       this.isLoggedIn = this.service.isLoggedIn()
     })
   }

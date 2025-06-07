@@ -11,6 +11,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>
   private currentUser$: Observable<User | null>
   private tokenKey = "token_key"
+  private profileImage = "image_url"
 
   private router = inject(Router)
 
@@ -24,14 +25,18 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  getProfileImage(): string | null {
+    return localStorage.getItem(this.profileImage)
+  }
+
   isLoggedIn = (): boolean => {
-    console.log("IsLoggedIn: ", !!this.getToken())
     return !!this.getToken();
   }
 
   logout = (): void => {
 
     localStorage.removeItem(this.tokenKey)
+    localStorage.removeItem(this.profileImage)
     this.currentUserSubject.next(null)
     this.router.navigate(['/Login'])
   }
@@ -48,6 +53,8 @@ export class AuthService {
   handleAuthentication (response: ApiAuthRespose): ApiAuthRespose {
 
     localStorage.setItem(this.tokenKey, response.body.token)
+    this.profileImage = response.body.user.profile_image || ""
+    localStorage.setItem(this.profileImage, this.profileImage)
 
     this.currentUserSubject.next(response.body.user)
 
@@ -97,6 +104,7 @@ export class AuthService {
 
   private getUserFromStorage(): User | null {
     const token = this.getToken()
+    const imageUrl = this.getProfileImage()
 
     if (token) {
       try {
@@ -112,7 +120,8 @@ export class AuthService {
           _id: payload.id,
           email: payload.email,
           username: payload.username || payload.email.split('@')[0],
-          role: payload.role
+          role: payload.role,
+          profile_image: imageUrl || ""
         }
       } catch (e) {
         this.logout()
