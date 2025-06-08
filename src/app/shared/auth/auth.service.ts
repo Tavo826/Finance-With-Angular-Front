@@ -53,8 +53,8 @@ export class AuthService {
   handleAuthentication (response: ApiAuthRespose): ApiAuthRespose {
 
     localStorage.setItem(this.tokenKey, response.body.token)
-    this.profileImage = response.body.user.profile_image || ""
-    localStorage.setItem(this.profileImage, this.profileImage)
+    const profileImageUrl = response.body.user.profile_image || ""
+    localStorage.setItem(this.profileImage, profileImageUrl)
 
     this.currentUserSubject.next(response.body.user)
 
