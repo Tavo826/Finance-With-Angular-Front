@@ -1,0 +1,62 @@
+<div class="container-xl">
+    <div class="container-error">{{errors}}</div>
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-2 mb-md-0">
+                        <h4 class="mb-0"><b>New Origin</b></h4>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-md-end text-center">
+                        <a href="#" routerLink="/Home" class="btn btn-success back">
+                            <i class="fas fa-arrow-circle-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <form (submit)="addOrigin()" [formGroup]="form">
+                <div class="table-content">
+
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Name" class="form-label">Name<span
+                                    class="requiredStar">*</span></label>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <input type="text" class="form-control" id="Name" required maxlength="255"
+                                [formControl]="form.controls.name">
+                            <div *ngIf="form.controls.name.errors && isSubmitted"
+                                class="alert alert-danger validationError mt-2">
+                                <div [hidden]="!form.controls.name.errors['required']">
+                                    Name is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group p-10 row mb-3">
+                        <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                            <label for="Total" class="form-label">Total<span class="requiredStar">*</span></label>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <input type="number" class="form-control" id="Total" required min="0"
+                                [formControl]="form.controls.total">
+                            <div *ngIf="form.controls.total.errors && isSubmitted" class="alert alert-danger validationError mt-2">
+                                <div [hidden]="!form.controls.total.errors['required']">
+                                    Total is required
+                                </div>
+                                <div [hidden]="!form.controls.total.errors['min']">
+                                    Total must be positive
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table-footer">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

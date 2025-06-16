@@ -1,6 +1,9 @@
+import { OriginResponse } from "./origin.models";
+
 export interface TransactionRequest {
     amount: number;
     user_id: string;
+    origin_id: string
     type: string;
     subject: string;
     person_business: string;
@@ -12,6 +15,7 @@ export interface TransactionRequest {
 
 export interface TransactionResponse extends TransactionRequest {
     _id: string;
+    origin: OriginResponse | null | undefined
 }
 
 export interface ApiTransactionResponseList {

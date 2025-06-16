@@ -44,6 +44,15 @@
             <td><span>{{ transactionDetail?.description }}</span></td>
           </tr>
           <tr>
+            <td><label><b>Origin</b></label></td>
+            @if (transactionDetail?.origin == null) {
+              <td [ngClass]="{'no-origin': true}">
+                  no defined</td>
+            } @else {
+                <td>{{ transactionDetail?.origin?.name }}</td>
+            }
+          </tr>
+          <tr>
             <td><label><b>Date</b></label></td>
             <td><span>{{ transactionDetail?.created }}</span></td>
           </tr>

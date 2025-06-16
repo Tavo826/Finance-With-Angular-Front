@@ -5,6 +5,8 @@ import { HttpTransactionProviderService } from '../../service/http-transaction-p
 import { TransactionRequest } from '../../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/auth/auth.service';
+import { HttpOriginProviderService } from '../../service/http-origin-provider.service';
+import { OriginResponse } from '../../interface/origin.models';
 
 @Component({
   selector: 'app-add-transaction',
@@ -15,7 +17,8 @@ import { AuthService } from '../../shared/auth/auth.service';
 export class AddTransactionComponent {
 
   private readonly formBuilder = inject(FormBuilder)
-  httpProvider = inject(HttpTransactionProviderService);
+  httpTransactionProvider = inject(HttpTransactionProviderService)
+  httpOriginProvider = inject(HttpOriginProviderService)
   router = inject(Router)
   authService = inject(AuthService)
 
@@ -23,6 +26,12 @@ export class AddTransactionComponent {
   errors: string = ""
   transactionTypes: string[] = ["Income", "Output"]
   transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
+  originMap = new Map<string, string>()
+  originList: string[] = []
+
+  constructor() {
+    this.getOriginsByUserId()
+  }
 
   form = this.formBuilder.group({
     amount: [0, Validators.min(0.01)],
@@ -30,8 +39,29 @@ export class AddTransactionComponent {
     subject: [''],
     person_business: [''],
     description: [''],
+    origin_id: [''],
     created: [''],
   });
+
+  getOriginsByUserId() {
+  
+      let originResponse: OriginResponse[]
+  
+      this.httpOriginProvider.getAllOriginByUserId().subscribe({
+        next: (data: any) => {
+          if (data != null && data.body != null) {
+            originResponse = data.body
+            originResponse.forEach(origin => {
+              this.originMap.set(origin.name, origin._id)
+              this.originList.push(origin.name)
+            })
+          }
+        },
+        error: (error: any) => {
+          this.errors = error
+        } 
+      })
+    }
 
   addTransaction() {
     this.isSubmitted = true
@@ -39,8 +69,12 @@ export class AddTransactionComponent {
     if (this.form.invalid)  return
 
     let transaction = this.form.value as TransactionRequest;
+    let formValues = this.form.value
+
     transaction.user_id = this.authService.getCurrentUserValue()?._id!
-    this.httpProvider.saveTransaction(transaction).subscribe({
+    transaction.origin_id = this.originMap.get(formValues.origin_id || "") || ""
+    
+    this.httpTransactionProvider.saveTransaction(transaction).subscribe({
       next: () => {
         this.router.navigate(['Home'])
       },

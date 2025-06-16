@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { RegisterRequest } from '../../interface/user.models';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -47,11 +48,32 @@ export class RegisterComponent {
     this.httpProvider.registerUser(registerData).subscribe({
       next: () => {
         this.isLoading = false
-        this.router.navigate(['/Home'])
+        this.showOriginAlert()
       },
       error: err => {
         this.errors = err;
         this.isLoading = false
+      }
+    })
+  }
+
+  private showOriginAlert() {
+    
+    Swal.fire({
+      title: 'User successfully registered!',
+      text: 'Do you want to add origins for your money?',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#28a745',
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: 'Yeah, add origins',
+      cancelButtonText: 'Nope, add later',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/AddOrigin'])
+      } else {
+        this.router.navigate(['/Home'])
       }
     })
   }

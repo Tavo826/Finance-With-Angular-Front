@@ -54,6 +54,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['ViewUser'])
   }
 
+  ViewOrigins(event: Event){
+    event.preventDefault()
+    this.router.navigate(['ViewOrigin'])
+  }
+
   Logout() {
     this.service.logout()
   }

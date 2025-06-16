@@ -6,6 +6,8 @@ import { ApiTransactionResponse, TransactionRequest } from '../../interface/tran
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../../shared/loading/loading.component";
 import { AuthService } from '../../shared/auth/auth.service';
+import { OriginResponse } from '../../interface/origin.models';
+import { HttpOriginProviderService } from '../../service/http-origin-provider.service';
 
 @Component({
   selector: 'app-edit-transaction',
@@ -16,20 +18,24 @@ import { AuthService } from '../../shared/auth/auth.service';
 export class EditTransactionComponent {
 
   private readonly formBuilder = inject(FormBuilder)
-  httpProvider = inject(HttpTransactionProviderService)
+  httpTransactionProvider = inject(HttpTransactionProviderService)
+  httpOriginProvider = inject(HttpOriginProviderService)
   router = inject(Router)
   route = inject(ActivatedRoute)
   authService = inject(AuthService)
 
   isSubmitted = false
-  errores: string = ""
+  errors: string = ""
   transactionId = this.route.snapshot.params['transactionId']
   editTransaction: any
+  originMap = new Map<string, string>()
+  originList: string[] = []
 
   transactionTypes: string[] = ["Income", "Output"]
   transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
 
   constructor() {
+    this.getOriginsByUserId()
     this.getTransactionDetailById()
   }
 
@@ -39,23 +45,49 @@ export class EditTransactionComponent {
     subject: [''],
     person_business: [''],
     description: [''],
+    origin_id: [''],
     created: [''],
     created_at: [''],
     updated_at: [''],
   });
 
+  getOriginsByUserId() {
+
+    let originResponse: OriginResponse[]
+
+    this.httpOriginProvider.getAllOriginByUserId().subscribe({
+      next: (data: any) => {
+        if (data != null && data.body != null) {
+          originResponse = data.body
+          originResponse.forEach(origin => {
+            this.originMap.set(origin.name, origin._id)
+            this.originList.push(origin.name)
+          })
+        }
+      },
+      error: (error: any) => {
+        this.errors = error
+      } 
+    })
+  }
+
   getTransactionDetailById() {
 
-    this.httpProvider.getTransactionById(this.transactionId).subscribe({
+    this.httpTransactionProvider.getTransactionById(this.transactionId).subscribe({
       next: (data: ApiTransactionResponse) => {
         if (data != null && data.body != null) {
           var resultData = data.body
 
-          this.form.patchValue(resultData)
+          const formData = {
+            ...resultData,
+            origin: resultData.origin?.name
+          }
+
+          this.form.patchValue(formData)
         }
       },
       error: (error: any) => {
-        this.errores = error
+        this.errors = error
       }
     })
   }
@@ -67,9 +99,14 @@ export class EditTransactionComponent {
     if (this.form.invalid)  return
     
     if (isValid) {
+
       let transaction = this.form.value as TransactionRequest;
+      let formValues = this.form.value
+
       transaction.user_id = this.authService.getCurrentUserValue()?._id!
-      this.httpProvider.updateTransaction(this.transactionId, transaction).subscribe(() => {
+      transaction.origin_id = this.originMap.get(formValues.origin_id || "") || ""
+
+      this.httpTransactionProvider.updateTransaction(this.transactionId, transaction).subscribe(() => {
         this.router.navigate(['Home'])
       })
     }

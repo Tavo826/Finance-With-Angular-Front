@@ -7,6 +7,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoadingComponent } from "../shared/loading/loading.component";
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { OriginResponse } from '../interface/origin.models';
 
 @Component({
   selector: 'app-home',
@@ -54,7 +55,7 @@ export class HomeComponent {
 
     this.isLoading = true
 
-    this.httpProvider.getAllTransaction(page, limit).subscribe({
+    this.httpProvider.getAllTransactionByUserId(page, limit).subscribe({
       next: (data: any) => {
         if (data != null && data.body != null) {
           var resultData = data.body

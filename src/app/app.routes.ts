@@ -8,6 +8,9 @@ import { RegisterComponent } from './users/register/register.component';
 import { AuthGuard, NoAuthGuard } from './shared/auth/auth.guard';
 import { ViewUserComponent } from './users/view-user/view-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { EditOriginComponent } from './origins/edit-origin/edit-origin.component';
+import { ViewOriginComponent } from './origins/view-origin/view-origin.component';
+import { AddOriginComponent } from './origins/add-origin/add-origin.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'Login', pathMatch: 'full' },
@@ -19,5 +22,8 @@ export const routes: Routes = [
     { path: 'ViewTransaction/:transactionId', component: ViewTransactionComponent, canActivate: [AuthGuard] },
     { path: 'AddTransaction', component: AddTransactionComponent, canActivate: [AuthGuard] },
     { path: 'EditTransaction/:transactionId', component: EditTransactionComponent, canActivate: [AuthGuard] },
+    { path: 'ViewOrigin', component: ViewOriginComponent, canActivate: [AuthGuard] },
+    { path: 'AddOrigin', component: AddOriginComponent, canActivate: [AuthGuard] },
+    { path: 'EditOrigin/:originId', component: EditOriginComponent, canActivate: [AuthGuard] },
     { path: "**", redirectTo: 'Login'}
 ];

@@ -87,6 +87,7 @@
                             <th>Subject</th>
                             <th>Person or Business</th>
                             <th>Description</th>
+                            <th>Origin</th>
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>
@@ -100,6 +101,12 @@
                             <td>{{ transaction.subject }}</td>
                             <td>{{ transaction.person_business }}</td>
                             <td>{{ transaction.description }}</td>
+                            @if (transaction.origin == null) {
+                                <td [ngClass]="{'no-origin': true}">
+                                    not defined</td>
+                            } @else {
+                                <td>{{ transaction.origin.name }}</td>
+                            }
                             <td>{{ transaction.created }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
