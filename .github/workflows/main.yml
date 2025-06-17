@@ -38,8 +38,8 @@ jobs:
         run: npm i
 
       # Build app for production
-      - name: Build app for production  
-        run: npm run build -- --configuration=production --base-href=/Finance-With-Angular-Front/
+      - name: Build app boundle
+        run: npm run build:prod
 
       #Route file renaming
       - name: Rename index for routing
