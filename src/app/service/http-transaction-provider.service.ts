@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ApiTransactionResponse, ApiTransactionResponseList, TransactionRequest } from '../interface/transaction.models';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth/auth.service';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ApiAuthRespose, ApiUserResponse, LoginRequest, RegisterRequest, User, UserRequest } from '../interface/user.models';
 import { catchError, map, Observable } from 'rxjs';
