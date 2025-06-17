@@ -1,3 +1,5 @@
 export const environment = {
-    apiURL: 'http://localhost:8080/transactions'
+    production: false,
+    apiURL: 'http://localhost:8000/v1/',
+    name: 'development'
 };

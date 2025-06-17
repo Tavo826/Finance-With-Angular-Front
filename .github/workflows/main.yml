@@ -29,14 +29,17 @@ jobs:
       # Setup nodeJS
       - name: Setup nodeJS
         uses: actions/setup-node@v4.3.0
+        with:
+          node-version: '18'
+          cache: 'npm'
 
       # Install dependencies
       - name: Install deps
-        run: npm i
+        run: npm ci
 
       # Build app for production
-      - name: Build app boundle
-        run: npm run build:prod
+      - name: Build app for production
+        run: npm run build -- --configuration=production
 
       #Route file renaming
       - name: Rename index for routing

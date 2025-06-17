@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:dev": "ng serve --configuration=development",
     "build": "ng build",
+    "build:dev": "ng build --configuration=development",
     "build:prod": "ng build --configuration=production --base-href=/Finance-With-Angular-Front/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

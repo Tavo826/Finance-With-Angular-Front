@@ -1,3 +1,5 @@
 export const environment = {
-    apiURL: process.env['NG_APP_BASE_URL']
+    production: true,
+    apiURL: 'https://finance-with-go-back.onrender.com/v1/',
+    name: 'production'
 };
