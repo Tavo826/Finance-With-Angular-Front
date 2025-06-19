@@ -8,6 +8,7 @@ import { LoadingComponent } from "../shared/loading/loading.component";
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { OriginResponse } from '../interface/origin.models';
+import { HttpOriginProviderService } from '../service/http-origin-provider.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomeComponent {
   errors: string = ""
   transactionList: TransactionResponse[] = []
   totalTransactions = 0
+  totalBudget = 0
   page = 1
   limit = 20
   years: number[] = []
@@ -39,7 +41,8 @@ export class HomeComponent {
   isFilterActive = false
 
   router = inject(Router)
-  httpProvider = inject(HttpTransactionProviderService)
+  httpTransactionProvider = inject(HttpTransactionProviderService)
+  httpOriginProvider = inject(HttpOriginProviderService)
 
   constructor() {
 
@@ -48,14 +51,39 @@ export class HomeComponent {
     this.years = this.getYearsArray(currentYear, currentYear)
     this.selectedYear = currentYear
     this.selectedMonth = ""
+    this.getAllOrigin()
     this.getAllTransaction(this.page, this.limit)
+  }
+
+  async getAllOrigin() {
+
+    this.isLoading = true
+    let originList: OriginResponse[] = []
+
+    this.httpOriginProvider.getAllOriginByUserId().subscribe({
+      next: (data: any) => {
+        if (data != null && data.body != null) {
+          originList = data.body
+          originList.forEach(origin => {
+            this.totalBudget += origin.total
+          })
+          this.isLoading = false
+        } else {
+          this.isLoading = false
+        }
+      },
+      error: (error: any) => {
+        this.errors = error
+        this.isLoading = false
+      } 
+    })
   }
 
   async getAllTransaction(page: number, limit: number) {
 
     this.isLoading = true
 
-    this.httpProvider.getAllTransactionByUserId(page, limit).subscribe({
+    this.httpTransactionProvider.getAllTransactionByUserId(page, limit).subscribe({
       next: (data: any) => {
         if (data != null && data.body != null) {
           var resultData = data.body
@@ -92,7 +120,7 @@ export class HomeComponent {
 
   deleteTransaction(transaction: TransactionResponse) {
 
-    this.httpProvider.deleteTransaction(transaction._id).subscribe({
+    this.httpTransactionProvider.deleteTransaction(transaction._id).subscribe({
       next:(data: any) => {
         if (data != null) {
           if (this.isFilterActive) {
@@ -142,7 +170,7 @@ export class HomeComponent {
 
     let selectedMonthKey = this.months.get(this.selectedMonth) ?? 0
 
-    this.httpProvider.getAllTransactionByDate(
+    this.httpTransactionProvider.getAllTransactionByDate(
       page, 
       this.limit, 
       this.selectedYear, 
@@ -160,7 +188,7 @@ export class HomeComponent {
 
   loadFilteredBySubject(page: number) {
 
-    this.httpProvider.getAllTransactionBySubject(
+    this.httpTransactionProvider.getAllTransactionBySubject(
       page,
       this.limit,
       this.selectedSubject,
