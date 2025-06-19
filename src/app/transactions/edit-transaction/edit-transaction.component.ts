@@ -32,7 +32,7 @@ export class EditTransactionComponent {
   originList: string[] = []
 
   transactionTypes: string[] = ["Income", "Output"]
-  transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
+  transactionSubjects: string[] = ["Payment", "Expense", "Debt"]
 
   constructor() {
     this.getOriginsByUserId()

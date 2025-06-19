@@ -25,7 +25,7 @@ export class AddTransactionComponent {
   isSubmitted: boolean = false
   errors: string = ""
   transactionTypes: string[] = ["Income", "Output"]
-  transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
+  transactionSubjects: string[] = ["Payment", "Expense", "Debt"]
   originMap = new Map<string, string>()
   originList: string[] = []
 
