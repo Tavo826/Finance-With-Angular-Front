@@ -5,7 +5,6 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ## Deployed in
 
 * Github Pages: https://tavo826.github.io/Finance-With-Angular-Front/Home
-* Netlify: https://transcendent-brioche-97eea6.netlify.app/Home
 
 ## Development server
 
