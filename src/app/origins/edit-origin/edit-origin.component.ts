@@ -59,8 +59,14 @@ export class EditOriginComponent {
 
     if(isValid) {
       let origin = this.form.value as OriginRequest
-      this.httpProvider.updateOrigin(this.originId, origin).subscribe(() => {
-        this.router.navigate(['ViewOrigin'])
+      origin.user_id = this.authService.getCurrentUserValue()?._id!
+      this.httpProvider.updateOrigin(this.originId, origin).subscribe({
+        next: () => {
+          this.router.navigate(['ViewOrigin'])
+        },
+        error: (error: any) => {
+          this.errors = error
+        }
       })
     }
   }
