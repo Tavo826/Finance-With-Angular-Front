@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="col-lg-9 col-md-8 col-sm-12">
                                     <select class="form-select" id="Origin"
-                                        [formControl]="form.controls.origin_id">
+                                        [formControl]="form.controls.origin">
                                         <option value="" disabled selected>Select origin</option>
                                         <option *ngFor="let origin of originList" [value]="origin">{{origin}}</option>
                                     </select>

@@ -45,7 +45,7 @@ export class EditTransactionComponent {
     subject: [''],
     person_business: [''],
     description: [''],
-    origin_id: [''],
+    origin: [''],
     created: [''],
     created_at: [''],
     updated_at: [''],
@@ -104,7 +104,7 @@ export class EditTransactionComponent {
       let formValues = this.form.value
 
       transaction.user_id = this.authService.getCurrentUserValue()?._id!
-      transaction.origin_id = this.originMap.get(formValues.origin_id || "") || ""
+      transaction.origin_id = this.originMap.get(formValues.origin || "") || ""
 
       this.httpTransactionProvider.updateTransaction(this.transactionId, transaction).subscribe(() => {
         this.router.navigate(['Home'])
