@@ -57,8 +57,6 @@ export class HomeComponent {
 
   async getAllOrigin() {
 
-    console.log("Origin activated")
-
     this.isLoading = true
     let originList: OriginResponse[] = []
 
@@ -126,7 +124,6 @@ export class HomeComponent {
     this.httpTransactionProvider.deleteTransaction(transaction._id).subscribe({
       next:(data: any) => {
         if (data != null) {
-          console.log("deleted")
           this.getAllOrigin()
           if (this.isFilterActive) {
             this.loadFilteredData(this.page)
