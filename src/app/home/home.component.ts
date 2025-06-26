@@ -19,6 +19,7 @@ import { HttpOriginProviderService } from '../service/http-origin-provider.servi
 export class HomeComponent {
 
   isLoading: boolean = true
+  isTotalVisible: boolean = true;
   errors: string = ""
   transactionList: TransactionResponse[] = []
   totalTransactions = 0
@@ -53,6 +54,10 @@ export class HomeComponent {
     this.selectedMonth = ""
     this.getAllOrigin()
     this.getAllTransaction(this.page, this.limit)
+  }
+
+  toggleTotalVisibility(): void {
+    this.isTotalVisible = !this.isTotalVisible;
   }
 
   async getAllOrigin() {
