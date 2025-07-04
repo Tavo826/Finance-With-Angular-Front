@@ -19,7 +19,7 @@ import { HttpOriginProviderService } from '../service/http-origin-provider.servi
 export class HomeComponent {
 
   isLoading: boolean = true
-  isTotalVisible: boolean = true;
+  isTotalVisible: boolean = false;
   errors: string = ""
   transactionList: TransactionResponse[] = []
   totalTransactions = 0
