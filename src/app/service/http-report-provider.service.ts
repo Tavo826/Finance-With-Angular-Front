@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../shared/auth/auth.service';
 import { ApiReportResponse } from '../interface/report.models';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, timeout } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,7 @@ export class HttpReportProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
+      timeout(30000),
       map((response: ApiReportResponse) => this.returnResponseData(response)),
       catchError(this.authService.handleError)
     )
