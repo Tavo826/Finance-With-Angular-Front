@@ -6,6 +6,7 @@ import { ApiUserResponse, User, UserResponse } from '../../interface/user.models
 import { Router } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AuthService } from '../../shared/auth/auth.service';
+import { HttpReportProviderService } from '../../service/http-report-provider.service';
 
 @Component({
   selector: 'app-view-user',
@@ -17,7 +18,8 @@ export class ViewUserComponent {
 
   router = inject(Router)
   authService = inject(AuthService)
-  httpProvider = inject(HttpAuthProviderService)
+  httpAuthProvider = inject(HttpAuthProviderService)
+  httpReportProvider = inject(HttpReportProviderService)
 
   userDetail: UserResponse | undefined
   errors: string = ""
@@ -28,7 +30,7 @@ export class ViewUserComponent {
   }
 
   getUserDetailById() {
-    this.httpProvider.getUserDetailById().subscribe({
+    this.httpAuthProvider.getUserDetailById().subscribe({
       next: (data: ApiUserResponse) => {
         if (data != null && data.body != null) {
           this.userDetail = data.body
@@ -46,10 +48,24 @@ export class ViewUserComponent {
 
   deleteUser(user: UserResponse) {
 
-    this.httpProvider.deleteUser(user._id).subscribe({
+    this.httpAuthProvider.deleteUser(user._id).subscribe({
       next:(data: any) => {
         if (data != null) {
           this.authService.logout()
+        }
+      },
+      error: (error: any) => {
+        this.errors = error
+      }
+    })
+  }
+
+  sendReport() {
+
+    this.httpReportProvider.generateReport().subscribe({
+      next: (data: any) => {
+        if (data != null && data.body != null) {
+          this.router.navigate(['Home'])
         }
       },
       error: (error: any) => {

@@ -60,6 +60,11 @@
         </table>
         <div class="table-footer">
           <div class="button-group">
+            <button type="button"
+              [swal]="{ title: 'Confirmation', text: 'Last month\'s report will be send to your email', showCancelButton: true }"
+              (confirm)="sendReport()" class="btn btn-primary"> 
+              Get report
+            </button>
             <button type="button" class="btn btn-success" (click)="EditUser()">Edit User</button>
             <button type="button"
               [swal]="{ title: 'Confirmation', text: 'Delete this User?', showCancelButton: true }"
