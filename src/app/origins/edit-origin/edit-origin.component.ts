@@ -3,13 +3,14 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 import { HttpOriginProviderService } from '../../service/http-origin-provider.service';
 import { AuthService } from '../../shared/auth/auth.service';
 import { ApiOriginResponse, OriginRequest, OriginResponse } from '../../interface/origin.models';
 
 @Component({
   selector: 'app-edit-origin',
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent, ErrorAlertComponent],
   templateUrl: './edit-origin.component.html',
   styleUrl: './edit-origin.component.css'
 })
@@ -48,7 +49,7 @@ export class EditOriginComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }
@@ -67,7 +68,7 @@ export class EditOriginComponent {
           this.router.navigate(['ViewOrigin'])
         },
         error: (error: any) => {
-          this.errors = error
+          this.errors = error?.message || 'An unexpected error occurred'
         }
       })
     }

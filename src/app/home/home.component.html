@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-error">{{errors}}</div>
+                <app-error-alert [(message)]="errors"></app-error-alert>
             </div>
             @if (!isLoading) {
             <div class="table-responsive">

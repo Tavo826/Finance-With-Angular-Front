@@ -6,11 +6,12 @@ import { TransactionRequest } from '../../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/auth/auth.service';
 import { HttpOriginProviderService } from '../../service/http-origin-provider.service';
-import { OriginResponse } from '../../interface/origin.models';
+import { ApiOriginResponseList, OriginResponse } from '../../interface/origin.models';
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 
 @Component({
   selector: 'app-add-transaction',
-  imports: [ReactiveFormsModule, RouterLink, CommonModule],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, ErrorAlertComponent],
   templateUrl: './add-transaction.component.html',
   styleUrl: './add-transaction.component.css'
 })
@@ -48,7 +49,7 @@ export class AddTransactionComponent {
       let originResponse: OriginResponse[]
   
       this.httpOriginProvider.getAllOriginByUserId().subscribe({
-        next: (data: any) => {
+        next: (data: ApiOriginResponseList) => {
           if (data != null && data.body != null) {
             originResponse = data.body
             originResponse.forEach(origin => {
@@ -58,7 +59,7 @@ export class AddTransactionComponent {
           }
         },
         error: (error: any) => {
-          this.errors = error
+          this.errors = error?.message || 'An unexpected error occurred'
         } 
       })
     }
@@ -79,7 +80,7 @@ export class AddTransactionComponent {
         this.router.navigate(['Home'])
       },
       error: err => {
-        this.errors = err;
+        this.errors = err?.message || 'An unexpected error occurred'
       }
     })
   }

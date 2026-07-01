@@ -5,13 +5,14 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiTransactionResponse, TransactionRequest } from '../../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../../shared/loading/loading.component";
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 import { AuthService } from '../../shared/auth/auth.service';
-import { OriginResponse } from '../../interface/origin.models';
+import { ApiOriginResponseList, OriginResponse } from '../../interface/origin.models';
 import { HttpOriginProviderService } from '../../service/http-origin-provider.service';
 
 @Component({
   selector: 'app-edit-transaction',
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent, ErrorAlertComponent],
   templateUrl: './edit-transaction.component.html',
   styleUrl: './edit-transaction.component.css'
 })
@@ -56,7 +57,7 @@ export class EditTransactionComponent {
     let originResponse: OriginResponse[]
 
     this.httpOriginProvider.getAllOriginByUserId().subscribe({
-      next: (data: any) => {
+      next: (data: ApiOriginResponseList) => {
         if (data != null && data.body != null) {
           originResponse = data.body
           originResponse.forEach(origin => {
@@ -66,7 +67,7 @@ export class EditTransactionComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       } 
     })
   }
@@ -87,7 +88,7 @@ export class EditTransactionComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }

@@ -4,11 +4,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpOriginProviderService } from '../../service/http-origin-provider.service';
 import { AuthService } from '../../shared/auth/auth.service';
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 import { OriginRequest } from '../../interface/origin.models';
 
 @Component({
   selector: 'app-add-origin',
-  imports: [ReactiveFormsModule, RouterLink, CommonModule],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, ErrorAlertComponent],
   templateUrl: './add-origin.component.html',
   styleUrl: './add-origin.component.css'
 })
@@ -40,7 +41,7 @@ export class AddOriginComponent {
         this.router.navigate(['ViewOrigin'])
       },
       error: err => {
-        this.errors = err;
+        this.errors = err?.message || 'An unexpected error occurred'
       }
     })
   }

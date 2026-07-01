@@ -24,7 +24,6 @@ export class HttpReportProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      timeout(30000),
       map((response: ApiReportResponse) => this.returnResponseData(response)),
       catchError(this.authService.handleError)
     )

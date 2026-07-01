@@ -4,11 +4,12 @@ import { HttpAuthProviderService } from '../../service/http-auth-provider.servic
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 import { LoginRequest } from '../../interface/user.models';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule, LoadingComponent, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, LoadingComponent, RouterLink, ErrorAlertComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -42,7 +43,7 @@ export class LoginComponent {
         this.router.navigate(['Home'])
       },
       error: err => {
-        this.errors = err
+        this.errors = err?.message || 'An unexpected error occurred'
         this.isLoading = false
       }
     })

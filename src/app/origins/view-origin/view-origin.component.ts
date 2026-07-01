@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 import { Router, RouterLink } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +10,7 @@ import { HttpOriginProviderService } from '../../service/http-origin-provider.se
 
 @Component({
   selector: 'app-view-origin',
-  imports: [RouterLink, CommonModule, SweetAlert2Module, CommonModule, LoadingComponent, FormsModule],
+  imports: [RouterLink, CommonModule, SweetAlert2Module, LoadingComponent, FormsModule, ErrorAlertComponent],
   templateUrl: './view-origin.component.html',
   styleUrl: './view-origin.component.css'
 })
@@ -41,7 +42,7 @@ export class ViewOriginComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
         this.isLoading = false
       } 
     })
@@ -60,7 +61,7 @@ export class ViewOriginComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }

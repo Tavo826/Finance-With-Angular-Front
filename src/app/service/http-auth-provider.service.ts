@@ -55,9 +55,9 @@ export class HttpAuthProviderService {
     )
   }
 
-  public deleteUser(id: string): Observable<any> {
+  public deleteUser(id: string): Observable<ApiUserResponse> {
 
-    return this.http.delete<any>(this.apiUrl + this.usersEndpoint + id,
+    return this.http.delete<ApiUserResponse>(this.apiUrl + this.usersEndpoint + id,
       this.authService.getAuthHeaders()
     )
       .pipe(

@@ -1,18 +1,19 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
-import { TransactionResponse } from '../interface/transaction.models';
+import { ApiTransactionResponse, ApiTransactionResponseList, TransactionResponse } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoadingComponent } from "../shared/loading/loading.component";
+import { ErrorAlertComponent } from "../shared/error-alert/error-alert.component";
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { OriginResponse } from '../interface/origin.models';
+import { ApiOriginResponseList, OriginResponse } from '../interface/origin.models';
 import { HttpOriginProviderService } from '../service/http-origin-provider.service';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, CommonModule, SweetAlert2Module, LoadingComponent, NgbPaginationModule, FormsModule],
+  imports: [RouterLink, CommonModule, SweetAlert2Module, LoadingComponent, NgbPaginationModule, FormsModule, ErrorAlertComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -32,7 +33,12 @@ export class HomeComponent {
 
   selectedYear!: number
   selectedMonth!: string
-  months = new Map<string, number>()
+  months = new Map(
+    Array.from({ length: 12 }, (_, i) => [
+      new Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(2000, i)),
+      i + 1
+    ])
+  )
 
   selectedFilterType: string = 'date'
   selectedSubject: string = ""
@@ -48,8 +54,7 @@ export class HomeComponent {
   constructor() {
 
     const currentYear = new Date().getFullYear()
-    this.initializeMonths()
-    this.years = this.getYearsArray(currentYear, currentYear)
+    this.years = this.getYearsArray(2025, currentYear)
     this.selectedYear = currentYear
     this.selectedMonth = ""
     this.getAllOrigin()
@@ -60,13 +65,13 @@ export class HomeComponent {
     this.isTotalVisible = !this.isTotalVisible;
   }
 
-  async getAllOrigin() {
+  getAllOrigin() {
 
     this.isLoading = true
     let originList: OriginResponse[] = []
 
     this.httpOriginProvider.getAllOriginByUserId().subscribe({
-      next: (data: any) => {
+      next: (data: ApiOriginResponseList) => {
         if (data != null && data.body != null) {
           this.totalBudget = 0
           originList = data.body
@@ -79,32 +84,22 @@ export class HomeComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
         this.isLoading = false
-      } 
+      }
     })
   }
 
-  async getAllTransaction(page: number, limit: number) {
+  getAllTransaction(page: number, limit: number) {
 
     this.isLoading = true
 
     this.httpTransactionProvider.getAllTransactionByUserId(page, limit).subscribe({
-      next: (data: any) => {
-        if (data != null && data.body != null) {
-          var resultData = data.body
-          if (resultData) {
-            this.transactionList = resultData.data
-            this.totalTransactions = resultData.totalDocuments
-            this.isLoading = false
-          }
-        } else{
-          this.transactionList = []
-          this.isLoading = false
-        }
+      next: (data: ApiTransactionResponseList) => {
+        this.handleFilteredResponse(data)
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
         this.isLoading = false
       }
     })
@@ -127,7 +122,7 @@ export class HomeComponent {
   deleteTransaction(transaction: TransactionResponse) {
 
     this.httpTransactionProvider.deleteTransaction(transaction._id).subscribe({
-      next:(data: any) => {
+      next:(data: ApiTransactionResponse) => {
         if (data != null) {
           this.getAllOrigin()
           if (this.isFilterActive) {
@@ -138,7 +133,7 @@ export class HomeComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }
@@ -182,11 +177,11 @@ export class HomeComponent {
       this.limit, 
       this.selectedYear, 
       selectedMonthKey).subscribe({
-        next: (data: any) => {
+        next: (data: ApiTransactionResponseList) => {
           this.handleFilteredResponse(data)
         },
         error: err => {
-          this.errors = err;
+          this.errors = err?.message || 'An unexpected error occurred'
           this.isLoading = false
         }
       }
@@ -200,17 +195,17 @@ export class HomeComponent {
       this.limit,
       this.selectedSubject,
       this.selectedPersonBusiness).subscribe({
-        next: (data: any) => {
+        next: (data: ApiTransactionResponseList) => {
           this.handleFilteredResponse(data)
         },
         error: err => {
-          this.errors = err;
+          this.errors = err?.message || 'An unexpected error occurred'
           this.isLoading = false
         }
       })
   }
 
-  handleFilteredResponse(data: any) {
+  handleFilteredResponse(data: ApiTransactionResponseList) {
     if (data != null && data.body != null) {
       var resultData = data.body
       if (resultData) {
@@ -247,24 +242,6 @@ export class HomeComponent {
     }
 
     return years
-  }
-
-  initializeMonths(): Map<string, number> {
-
-    this.months.set("All Months", 0)
-    this.months.set("January", 1)
-    this.months.set("February", 2)
-    this.months.set("March", 3)
-    this.months.set("April", 4)
-    this.months.set("May", 5)
-    this.months.set("June", 6)
-    this.months.set("July", 7)
-    this.months.set("August", 8)
-    this.months.set("September", 9)
-    this.months.set("October", 10)
-    this.months.set("November", 11)
-    this.months.set("December", 12)
-    return this.months
   }
 
 }

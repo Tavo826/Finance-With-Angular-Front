@@ -26,7 +26,7 @@ export class HttpTransactionProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiTransactionResponseList) => this.returnResponseData(response)),
+      map((response: ApiTransactionResponseList) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -46,7 +46,7 @@ export class HttpTransactionProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiTransactionResponseList) => this.returnResponseData(response)),
+      map((response: ApiTransactionResponseList) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -66,7 +66,7 @@ export class HttpTransactionProviderService {
         this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiTransactionResponseList) => this.returnResponseData(response)),
+      map((response: ApiTransactionResponseList) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -76,7 +76,7 @@ export class HttpTransactionProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiTransactionResponse) => this.returnResponseData(response)),
+      map((response: ApiTransactionResponse) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -86,7 +86,7 @@ export class HttpTransactionProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiTransactionResponse) => this.returnResponseData(response)),
+      map((response: ApiTransactionResponse) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -96,23 +96,18 @@ export class HttpTransactionProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiTransactionResponse) => this.returnResponseData(response)),
+      map((response: ApiTransactionResponse) => response),
       catchError(this.authService.handleError)
     )
   }
 
-  public deleteTransaction(id: string): Observable<any> {
-    return this.http.delete<any>(this.apiUrl + this.transactionsEndpoint + id,
+  public deleteTransaction(id: string): Observable<ApiTransactionResponse> {
+    return this.http.delete<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + id,
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: any) => this.returnResponseData(response)),
+      map((response: ApiTransactionResponse) => response),
       catchError(this.authService.handleError)
     )
-  }
-
-  private returnResponseData(response: any) {
-
-    return response;
   }
 }

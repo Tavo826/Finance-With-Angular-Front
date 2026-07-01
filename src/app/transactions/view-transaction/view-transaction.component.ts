@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpTransactionProviderService } from '../../service/http-transaction-provider.service';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../../shared/loading/loading.component";
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 
 @Component({
   selector: 'app-view-transaction',
-  imports: [CommonModule, LoadingComponent],
+  imports: [CommonModule, LoadingComponent, ErrorAlertComponent],
   templateUrl: './view-transaction.component.html',
   styleUrl: './view-transaction.component.css'
 })
@@ -33,7 +34,7 @@ export class ViewTransactionComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }

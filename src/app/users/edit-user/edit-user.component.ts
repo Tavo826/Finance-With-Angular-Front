@@ -6,10 +6,11 @@ import { AuthService } from '../../shared/auth/auth.service';
 import { ApiUserResponse } from '../../interface/user.models';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 
 @Component({
   selector: 'app-edit-user',
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, LoadingComponent, ErrorAlertComponent],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
@@ -54,7 +55,7 @@ export class EditUserComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }
@@ -121,7 +122,7 @@ export class EditUserComponent {
           this.router.navigate(['ViewUser'])
         },
         error: (error: any) => {
-          this.errors = error
+          this.errors = error?.message || 'An unexpected error occurred'
         }
       })
     }

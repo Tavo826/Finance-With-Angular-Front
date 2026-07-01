@@ -18,8 +18,16 @@ export interface TransactionResponse extends TransactionRequest {
     origin: OriginResponse | null | undefined
 }
 
+export interface PaginatedTransactionResponse {
+    page: number;
+    limit: number;
+    totalDocuments: number;
+    totalPages: number;
+    data: TransactionResponse[];
+}
+
 export interface ApiTransactionResponseList {
-    body: TransactionResponse[];
+    body: PaginatedTransactionResponse;
     message: string;
     success: boolean;
 }

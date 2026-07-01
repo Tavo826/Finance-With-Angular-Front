@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../shared/auth/auth.service';
 import { catchError, map, Observable } from 'rxjs';
 import { ApiOriginResponse, ApiOriginResponseList, OriginRequest, OriginResponse } from '../interface/origin.models';
-import { url } from 'inspector';
 
 @Injectable({
   providedIn: 'root'

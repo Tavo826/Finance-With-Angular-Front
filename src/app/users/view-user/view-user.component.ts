@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 import { HttpAuthProviderService } from '../../service/http-auth-provider.service';
 import { ApiUserResponse, User, UserResponse } from '../../interface/user.models';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { HttpReportProviderService } from '../../service/http-report-provider.se
 
 @Component({
   selector: 'app-view-user',
-  imports: [CommonModule, LoadingComponent, SweetAlert2Module],
+  imports: [CommonModule, LoadingComponent, SweetAlert2Module, ErrorAlertComponent],
   templateUrl: './view-user.component.html',
   styleUrl: './view-user.component.css'
 })
@@ -37,7 +38,7 @@ export class ViewUserComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }
@@ -49,13 +50,13 @@ export class ViewUserComponent {
   deleteUser(user: UserResponse) {
 
     this.httpAuthProvider.deleteUser(user._id).subscribe({
-      next:(data: any) => {
+      next:(data: ApiUserResponse) => {
         if (data != null) {
           this.authService.logout()
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }
@@ -69,7 +70,7 @@ export class ViewUserComponent {
         }
       },
       error: (error: any) => {
-        this.errors = error
+        this.errors = error?.message || 'An unexpected error occurred'
       }
     })
   }

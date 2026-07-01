@@ -4,12 +4,13 @@ import { HttpAuthProviderService } from '../../service/http-auth-provider.servic
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ErrorAlertComponent } from '../../shared/error-alert/error-alert.component';
 import { RegisterRequest } from '../../interface/user.models';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, CommonModule, LoadingComponent, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, LoadingComponent, RouterLink, ErrorAlertComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -51,7 +52,7 @@ export class RegisterComponent {
         this.showOriginAlert()
       },
       error: err => {
-        this.errors = err;
+        this.errors = err?.message || 'An unexpected error occurred'
         this.isLoading = false
       }
     })
