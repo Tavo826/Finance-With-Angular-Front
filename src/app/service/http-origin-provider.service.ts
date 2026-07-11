@@ -24,7 +24,7 @@ export class HttpOriginProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiOriginResponseList) => this.returnResponseData(response)),
+      map((response: ApiOriginResponseList) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -34,7 +34,7 @@ export class HttpOriginProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiOriginResponse) => this.returnResponseData(response)),
+      map((response: ApiOriginResponse) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -45,7 +45,7 @@ export class HttpOriginProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiOriginResponse) => this.returnResponseData(response)),
+      map((response: ApiOriginResponse) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -56,7 +56,7 @@ export class HttpOriginProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiOriginResponse) => this.returnResponseData(response)),
+      map((response: ApiOriginResponse) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -66,13 +66,8 @@ export class HttpOriginProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: any) => this.returnResponseData(response)),
+      map((response: any) => response),
       catchError(this.authService.handleError)
     )
-  }
-
-  private returnResponseData(response: any) {
-
-    return response;
   }
 }

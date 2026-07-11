@@ -39,7 +39,7 @@ export class HttpAuthProviderService {
       this.authService.getAuthHeaders()
     )
       .pipe(
-          map((response: ApiUserResponse) => this.returnResponseData(response)),
+          map((response: ApiUserResponse) => response),
           catchError(this.authService.handleError)
         )
   }
@@ -50,7 +50,7 @@ export class HttpAuthProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: any) => this.returnResponseData(response)),
+      map((response: ApiUserResponse) => response),
       catchError(this.authService.handleError)
     )
   }
@@ -61,13 +61,8 @@ export class HttpAuthProviderService {
       this.authService.getAuthHeaders()
     )
       .pipe(
-        map((response: any) => this.returnResponseData(response)),
+        map((response: ApiUserResponse) => response),
         catchError(this.authService.handleError)
       );
-  }
-
-  private returnResponseData(response: any) {
-
-    return response;
   }
 }

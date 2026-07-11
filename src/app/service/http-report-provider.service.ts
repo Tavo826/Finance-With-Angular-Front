@@ -24,13 +24,8 @@ export class HttpReportProviderService {
       this.authService.getAuthHeaders()
     )
     .pipe(
-      map((response: ApiReportResponse) => this.returnResponseData(response)),
+      map((response: ApiReportResponse) => response),
       catchError(this.authService.handleError)
     )
-  }
-
-  private returnResponseData(response: any) {
-
-    return response;
   }
 }

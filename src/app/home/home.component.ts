@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { HttpTransactionProviderService } from '../service/http-transaction-provider.service';
 import { ApiTransactionResponse, ApiTransactionResponseList, TransactionResponse } from '../interface/transaction.models';
 import { CommonModule } from '@angular/common';
@@ -57,37 +58,56 @@ export class HomeComponent {
     this.years = this.getYearsArray(2025, currentYear)
     this.selectedYear = currentYear
     this.selectedMonth = ""
-    this.getAllOrigin()
-    this.getAllTransaction(this.page, this.limit)
+    this.loadInitialData()
   }
 
   toggleTotalVisibility(): void {
     this.isTotalVisible = !this.isTotalVisible;
   }
 
-  getAllOrigin() {
+  loadInitialData() {
 
     this.isLoading = true
-    let originList: OriginResponse[] = []
 
-    this.httpOriginProvider.getAllOriginByUserId().subscribe({
-      next: (data: ApiOriginResponseList) => {
-        if (data != null && data.body != null) {
-          this.totalBudget = 0
-          originList = data.body
-          originList.forEach(origin => {
-            this.totalBudget += origin.total
-          })
-          this.isLoading = false
-        } else {
-          this.isLoading = false
-        }
+    forkJoin({
+      origins: this.httpOriginProvider.getAllOriginByUserId(),
+      transactions: this.httpTransactionProvider.getAllTransactionByUserId(this.page, this.limit)
+    }).subscribe({
+      next: ({ origins, transactions }) => {
+        this.processOriginResponse(origins)
+        this.handleFilteredResponse(transactions)
+        this.isLoading = false
       },
       error: (error: any) => {
         this.errors = error?.message || 'An unexpected error occurred'
         this.isLoading = false
       }
     })
+  }
+
+  getAllOrigin() {
+
+    this.isLoading = true
+
+    this.httpOriginProvider.getAllOriginByUserId().subscribe({
+      next: (data: ApiOriginResponseList) => {
+        this.processOriginResponse(data)
+        this.isLoading = false
+      },
+      error: (error: any) => {
+        this.errors = error?.message || 'An unexpected error occurred'
+        this.isLoading = false
+      }
+    })
+  }
+
+  processOriginResponse(data: ApiOriginResponseList) {
+    if (data != null && data.body != null) {
+      this.totalBudget = 0
+      data.body.forEach((origin: OriginResponse) => {
+        this.totalBudget += origin.total
+      })
+    }
   }
 
   getAllTransaction(page: number, limit: number) {
