@@ -25,10 +25,40 @@ export class AddTransactionComponent {
 
   isSubmitted: boolean = false
   errors: string = ""
-  transactionTypes: string[] = ["Income", "Output"]
-  transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
   originMap = new Map<string, string>()
   originList: string[] = []
+
+  transactionTypes: string[] = ["Entrada", "Salida", "Intercambio"]
+  inputTransactionSubjects: string[] = ["Salario", "Regalo", "Préstamo", "Inversión"]
+  outputTransactionSubjects: string[] = ["Comida", "Transporte", "Compras", "Facturas", "Entretenimiento", "Salud", "Educación", "Viajes", "Otros"]
+  interchangeTransactionSubjects: string[] = ["Inversión", "Retiro"]
+  outputTransactionCategories: string[] = ["Urgente e importante (Periódico)", "Importante pero no urgente (Periódico)", "Urgente pero no importante (No periódico)", "Ni urgente ni importante"]
+  outputTransactionCategoryInfo: { title: string, colorClass: string, description: string, examples: string[] }[] = [
+    {
+      title: "Urgente e importante (Periódico)",
+      colorClass: "danger",
+      description: "Gastos recurrentes que no se pueden posponer y son esenciales para tu estabilidad.",
+      examples: ["Renta o hipoteca", "Servicios (luz, agua, gas, internet)", "Mercado", "Seguro médico", "Transporte"]
+    },
+    {
+      title: "Importante pero no urgente (Periódico)",
+      colorClass: "warning",
+      description: "Gastos recurrentes que aportan a tu bienestar a largo plazo, pero tienen flexibilidad en el tiempo.",
+      examples: ["Corte de cabello", "Membresía de gimnasio", "Cursos o educación", "Fondo de emergencia", "Gasolina"]
+    },
+    {
+      title: "Urgente pero no importante (No periódico)",
+      colorClass: "info",
+      description: "Gastos puntuales que requieren atención inmediata, pero que no aportan mucho valor a largo plazo.",
+      examples: ["Reparación urgente del carro", "Reposición de un objeto perdido", "Envío exprés", "Multa o cargo por atraso"]
+    },
+    {
+      title: "Ni urgente ni importante",
+      colorClass: "secondary",
+      description: "Gastos discrecionales que podrías eliminar sin mayor impacto en tu vida.",
+      examples: ["Compras por impulso", "Comida a domicilio extra", "Suscripciones sin usar", "Compras de lujo no planeadas"]
+    }
+  ]
 
   constructor() {
     this.getOriginsByUserId()
@@ -39,6 +69,7 @@ export class AddTransactionComponent {
     type: [''],
     subject: [''],
     person_business: [''],
+    output_category: [''],
     description: [''],
     origin_id: [''],
     created: [''],

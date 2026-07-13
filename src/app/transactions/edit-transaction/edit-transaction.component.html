@@ -59,16 +59,44 @@
                                 <label for="Subject" class="form-label">Subject<span class="requiredStar">*</span></label>
                             </div>
                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                <select class="form-select" id="Subject" required
-                                [formControl]="form.controls.subject">
-                                <option value="" disabled selected>Select subject</option>
-                                <option *ngFor="let subject of transactionSubjects" [value]="subject">{{subject}}</option>
-                            </select>
+                                <select class="form-select" id="Subject" required [formControl]="form.controls.subject">
+                                    <option value="" disabled selected>Select subject</option>
+                                    <ng-container *ngIf="form.controls.type.value === 'Entrada'">
+                                        <option *ngFor="let subject of inputTransactionSubjects" [value]="subject">{{subject}}
+                                        </option>
+                                    </ng-container>
+                                    <ng-container *ngIf="form.controls.type.value === 'Salida'">
+                                        <option *ngFor="let subject of outputTransactionSubjects" [value]="subject">{{subject}}
+                                        </option>
+                                    </ng-container>
+                                    <ng-container *ngIf="form.controls.type.value === 'Intercambio'">
+                                        <option *ngFor="let subject of interchangeTransactionSubjects" [value]="subject">{{subject}}
+                                        </option>
+                                    </ng-container>
+                                </select>
                                 <div *ngIf="form.controls.subject.errors && isSubmitted" class="alert alert-danger validationError mt-2">
                                     <div [hidden]="!form.controls.subject.errors['required']">
                                         Subject is required
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="form.controls.type.value === 'Salida'" class="form-group p-10 row mb-3">
+                            <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mb-md-0">
+                                <label for="OutputCategory" class="form-label">Category</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12">
+                                <select class="form-select" id="OutputCategory" [formControl]="form.controls.output_category">
+                                    <option value="" disabled selected>Select category</option>
+                                    <ng-container *ngIf="form.controls.type.value === 'Salida'">
+                                        <option *ngFor="let category of outputTransactionCategories" [value]="category">{{category}}
+                                        </option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div>
+                                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#categoryModal">What is this?</a>
                             </div>
                         </div>
     
@@ -142,6 +170,34 @@
                     <app-loading></app-loading>
                 </div>
             }            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content category-modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoryModalLabel">Categorías de gastos</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-4">Estas categorías te ayudan a priorizar tus gastos según su urgencia e importancia:</p>
+                <div class="row g-3">
+                    <div class="col-md-6" *ngFor="let category of outputTransactionCategoryInfo">
+                        <div class="category-card border-start border-4 border-{{category.colorClass}}">
+                            <h6 class="text-{{category.colorClass}} fw-bold mb-2">{{category.title}}</h6>
+                            <p class="mb-2">{{category.description}}</p>
+                            <ul class="mb-0 ps-3">
+                                <li *ngFor="let example of category.examples">{{example}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>

@@ -82,6 +82,34 @@
     text-transform: uppercase;
 }
 
+.category-modal-content {
+    background: #333232;
+    color: #fff;
+}
+
+.category-modal-content .modal-header,
+.category-modal-content .modal-footer {
+    background: #3f3d3d;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.category-modal-content .modal-title {
+    color: #fff;
+}
+
+.category-card {
+    background: #3f3d3d;
+    border-radius: 3px;
+    padding: 15px;
+    height: 100%;
+}
+
+.category-card p,
+.category-card ul {
+    color: #d0d0d0;
+    font-size: 0.9rem;
+}
+
 .container-error {
     color: #f44336;
     background-color: #9e9a9a;

@@ -6,6 +6,7 @@ export interface TransactionRequest {
     origin_id: string
     type: string;
     subject: string;
+    output_category: string;
     person_business: string;
     description: string;
     created: string;
