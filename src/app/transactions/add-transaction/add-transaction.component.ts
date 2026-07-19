@@ -28,9 +28,10 @@ export class AddTransactionComponent {
   originMap = new Map<string, string>()
   originList: string[] = []
 
-  transactionTypes: string[] = ["Entrada", "Salida", "Intercambio"]
-  inputTransactionSubjects: string[] = ["Salario", "Regalo", "Préstamo", "Inversión"]
+  transactionTypes: string[] = ["Entrada", "Salida", "Deuda", "Intercambio"]
+  inputTransactionSubjects: string[] = ["Salario", "Pago", "Regalo", "Inversión"]
   outputTransactionSubjects: string[] = ["Comida", "Transporte", "Compras", "Facturas", "Entretenimiento", "Salud", "Educación", "Viajes", "Otros"]
+  debtTransactionSubjects: string[] = ["Presté dinero", "Me prestaron dinero"]
   interchangeTransactionSubjects: string[] = ["Inversión", "Retiro"]
   outputTransactionCategories: string[] = ["Urgente e importante (Periódico)", "Importante pero no urgente (Periódico)", "Urgente pero no importante (No periódico)", "Ni urgente ni importante"]
   outputTransactionCategoryInfo: { title: string, colorClass: string, description: string, examples: string[] }[] = [
@@ -103,6 +104,7 @@ export class AddTransactionComponent {
     let transaction = this.form.value as TransactionRequest;
     let formValues = this.form.value
 
+    transaction.type = formValues.type == "Entrada" ? "Income" : formValues.type == "Salida" ? "Output" : "Exchange"
     transaction.user_id = this.authService.getCurrentUserValue()?._id!
     transaction.origin_id = this.originMap.get(formValues.origin_id || "") || ""
     

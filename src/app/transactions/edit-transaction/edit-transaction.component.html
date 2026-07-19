@@ -69,6 +69,10 @@
                                         <option *ngFor="let subject of outputTransactionSubjects" [value]="subject">{{subject}}
                                         </option>
                                     </ng-container>
+                                    <ng-container *ngIf="form.controls.type.value === 'Deuda'">
+                                        <option *ngFor="let subject of debtTransactionSubjects" [value]="subject">{{subject}}
+                                        </option>
+                                    </ng-container>
                                     <ng-container *ngIf="form.controls.type.value === 'Intercambio'">
                                         <option *ngFor="let subject of interchangeTransactionSubjects" [value]="subject">{{subject}}
                                         </option>
