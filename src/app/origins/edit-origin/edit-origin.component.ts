@@ -34,6 +34,7 @@ export class EditOriginComponent {
   form = this.formBuilder.group({
     name: [''],
     total: [0, Validators.min(0.01)],
+    description: [''],
     created_at: [''],
     updated_at: [''],
   })

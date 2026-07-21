@@ -24,7 +24,7 @@
                         <tr class="center-align">
                             <th>Name</th>
                             <th>Total</th>
-                            <th>Created At</th>
+                            <th>Description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -32,7 +32,7 @@
                         <tr *ngFor="let origin of originList" class="center-align">
                             <td>{{ origin.name }}</td>
                             <td>{{ origin.total.toLocaleString() }}</td>
-                            <td>{{ origin.created_at.substring(0, 10) }}</td>
+                            <td>{{ origin.description }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a [routerLink]="['/EditOrigin', origin._id]" class="btn btn-link p-1">

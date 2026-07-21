@@ -25,7 +25,8 @@ export class AddOriginComponent {
 
   form = this.formBuilder.group({
     name: [''],
-    total: [0, Validators.min(0.01)]
+    total: [0, Validators.min(0.01)],
+    description: ['']
   })
 
   addOrigin() {

@@ -42,9 +42,9 @@ export class HomeComponent {
   )
 
   selectedFilterType: string = 'date'
-  selectedSubject: string = ""
+  selectedType: string = ""
   selectedPersonBusiness: string = ""
-  transactionSubjects: string[] = ["Payment", "Expense", "Debt", "Exchange"]
+  transactionTypes: string[] = ["Entrada", "Salida", "Deuda", "Intercambio"]
 
   isFilterActive = false
 
@@ -165,7 +165,7 @@ export class HomeComponent {
   onFilterTypeChange() {
     this.selectedYear = new Date().getFullYear()
     this.selectedMonth = ""
-    this.selectedSubject = ""
+    this.selectedType = ""
     this.selectedPersonBusiness = ""
   }
 
@@ -173,8 +173,7 @@ export class HomeComponent {
 
     this.isLoading = true
     this.page = 1
-    this.loadFilteredData(this.page)
-    
+    this.loadFilteredData(this.page)    
   }
 
   loadFilteredData(page: number) {
@@ -184,7 +183,7 @@ export class HomeComponent {
     if (this.selectedFilterType === 'date') {
       this.loadFilteredByDate(page)
     } else if (this.selectedFilterType === 'subject') {
-      this.loadFilteredBySubject(page)
+      this.loadFilteredByType(page)
     }
   }
 
@@ -208,13 +207,12 @@ export class HomeComponent {
     )
   }
 
-  loadFilteredBySubject(page: number) {
+  loadFilteredByType(page: number) {
 
-    this.httpTransactionProvider.getAllTransactionBySubject(
+    this.httpTransactionProvider.getAllTransactionByType(
       page,
       this.limit,
-      this.selectedSubject,
-      this.selectedPersonBusiness).subscribe({
+      this.selectedType).subscribe({
         next: (data: ApiTransactionResponseList) => {
           this.handleFilteredResponse(data)
         },
@@ -243,7 +241,7 @@ export class HomeComponent {
 
     this.selectedYear = new Date().getFullYear()
     this.selectedMonth = ""
-    this.selectedSubject = ""
+    this.selectedType = ""
     this.selectedPersonBusiness = ""
     this.selectedFilterType = "date"
     this.isFilterActive = false

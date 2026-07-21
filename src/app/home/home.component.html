@@ -27,7 +27,7 @@
 
                                     <input type="radio" class="btn-check" name="filterType" id="subjectFilter" value="subject" [(ngModel)]="selectedFilterType" (change)="onFilterTypeChange()">
                                     <label for="subjectFilter" class="btn btn-outline-primary">
-                                        <i class="fas fa-tags"></i> Subject
+                                        <i class="fas fa-tags"></i> Transaction Type
                                     </label>
                                 </div>
                             </div>
@@ -52,14 +52,10 @@
                             <div *ngIf="selectedFilterType === 'subject'" class="mb-3">
                                 <div class="row g-2">
                                     <div class="col-6">
-                                        <label class="form-label">Subject:</label>
-                                        <select class="form-select" [(ngModel)]="selectedSubject">
-                                            <option *ngFor="let subject of transactionSubjects" [value]="subject">{{ subject }}</option>
+                                        <label class="form-label">Transaction Type:</label>
+                                        <select class="form-select" [(ngModel)]="selectedType">
+                                            <option *ngFor="let type of transactionTypes" [value]="type">{{ type }}</option>
                                         </select>
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">Person/Business:</label>
-                                        <input type="text" [(ngModel)]="selectedPersonBusiness" class="form-control" id="PersonOrBusiness" required maxlength="255">
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +105,7 @@
                         <tr *ngFor="let transaction of transactionList" class="center-align">
                             <td>{{ transaction.amount.toLocaleString() }}</td>
                             <td
-                                [ngClass]="{'income': transaction.type == 'Income', 'output': transaction.type == 'Output'}">
+                                [ngClass]="{'income': transaction.type == 'Entrada', 'output': transaction.type == 'Salida'}">
                                 {{ transaction.type }}</td>
                             <td>{{ transaction.subject }}</td>
                             <td>{{ transaction.person_business }}</td>

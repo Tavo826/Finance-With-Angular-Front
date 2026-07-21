@@ -51,18 +51,16 @@ export class HttpTransactionProviderService {
     )
   }
 
-  public getAllTransactionBySubject(
+  public getAllTransactionByType(
     page: number,
     limit: number,
-    subject: string,
-    personOrBusiness: string
+    type: string
   ): Observable<ApiTransactionResponseList> {
     return this.http.get<ApiTransactionResponseList>(this.apiUrl + this.transactionsEndpoint +
-        "filter_subject?user_id=" + this.authService.getCurrentUserValue()?._id +
+        "filter_type?user_id=" + this.authService.getCurrentUserValue()?._id +
         "&page=" + page + 
         "&limit=" + limit +
-        "&subject=" + subject +
-        "&person_business=" + personOrBusiness,
+        "&type=" + type,
         this.authService.getAuthHeaders()
     )
     .pipe(
