@@ -105,7 +105,7 @@
                         <tr *ngFor="let transaction of transactionList" class="center-align">
                             <td>{{ transaction.amount.toLocaleString() }}</td>
                             <td
-                                [ngClass]="{'income': transaction.type == 'Entrada', 'output': transaction.type == 'Salida'}">
+                                [ngClass]="{'income': transaction.type == 'Input', 'output': transaction.type == 'Output', 'debt': transaction.type == 'Debt', 'exchange': transaction.type == 'Exchange'}">
                                 {{ transaction.type }}</td>
                             <td>{{ transaction.subject }}</td>
                             <td>{{ transaction.person_business }}</td>

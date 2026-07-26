@@ -32,7 +32,7 @@ export class AddTransactionComponent {
   inputTransactionSubjects: string[] = ["Salario", "Pago", "Regalo", "Inversión"]
   outputTransactionSubjects: string[] = ["Comida", "Transporte", "Compras", "Facturas", "Entretenimiento", "Salud", "Educación", "Viajes", "Otros"]
   debtTransactionSubjects: string[] = ["Presté dinero", "Me prestaron dinero"]
-  interchangeTransactionSubjects: string[] = ["Inversión", "Retiro"]
+  interchangeTransactionSubjects: string[] = ["Inversión", "Retiro", "Ahorro"]
   outputTransactionCategories: string[] = ["Urgente e importante (Periódico)", "Importante pero no urgente (Periódico)", "Urgente pero no importante (No periódico)", "Ni urgente ni importante"]
   outputTransactionCategoryInfo: { title: string, colorClass: string, description: string, examples: string[] }[] = [
     {
@@ -73,6 +73,7 @@ export class AddTransactionComponent {
     output_category: [''],
     description: [''],
     origin_id: [''],
+    destination_id: [''],
     created: [''],
   });
 
@@ -104,7 +105,7 @@ export class AddTransactionComponent {
     let transaction = this.form.value as TransactionRequest;
     let formValues = this.form.value
 
-    transaction.type = formValues.type == "Entrada" ? "Income" : formValues.type == "Salida" ? "Output" : "Exchange"
+    transaction.type = formValues.type == "Entrada" ? "Income" : formValues.type == "Salida" ? "Output" : formValues.type == "Deuda" ? "Debt" : "Exchange"
     transaction.user_id = this.authService.getCurrentUserValue()?._id!
     transaction.origin_id = this.originMap.get(formValues.origin_id || "") || ""
     

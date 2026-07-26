@@ -3,7 +3,8 @@ import { OriginResponse } from "./origin.models";
 export interface TransactionRequest {
     amount: number;
     user_id: string;
-    origin_id: string
+    origin_id: string;
+    destination_id: string;
     type: string;
     subject: string;
     output_category: string;
@@ -17,6 +18,7 @@ export interface TransactionRequest {
 export interface TransactionResponse extends TransactionRequest {
     _id: string;
     origin: OriginResponse | null | undefined
+    destination: OriginResponse | null | undefined
 }
 
 export interface PaginatedTransactionResponse {

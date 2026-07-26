@@ -28,7 +28,7 @@
           <tr>
             <td><label><b>Type</b></label></td>
             <td
-              [ngClass]="{'income': transactionDetail.type == 'Entrada', 'output': transactionDetail.type == 'Salida'}">
+              [ngClass]="{'income': transactionDetail.type == 'Input', 'output': transactionDetail.type == 'Output', 'debt': transactionDetail.type == 'Debt', 'exchange': transactionDetail.type == 'Exchange'}">
               <span>{{ transactionDetail.type }}</span>
             </td>
           </tr>
@@ -53,6 +53,14 @@
                 <td>{{ transactionDetail.origin.name }}</td>
             }
           </tr>
+          <tr>
+            <td><label><b>Destination</b></label></td>
+            @if (transactionDetail.destination == null) {
+              <td [ngClass]="{'no-origin': true}">
+                  no defined</td>
+            } @else {
+                <td>{{ transactionDetail.destination.name }}</td>
+            }
           <tr>
             <td><label><b>Date</b></label></td>
             <td><span>{{ transactionDetail.created }}</span></td>

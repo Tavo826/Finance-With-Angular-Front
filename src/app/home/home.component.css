@@ -6,8 +6,16 @@
     color: red;
 }
 
-.no-origin {
+.debt {
+    color: blue;
+}
+
+.exchange {
     color: orange;
+}
+
+.no-origin {
+    color: purple;
 }
 
 .container-xl {
