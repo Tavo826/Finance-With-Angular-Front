@@ -89,6 +89,16 @@ export class HttpTransactionProviderService {
     )
   }
 
+  public saveTransactionExchange(model: TransactionRequest): Observable<ApiTransactionResponse> {
+    return this.http.post<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + "exchange", model,
+      this.authService.getAuthHeaders()
+    )
+    .pipe(
+      map((response: ApiTransactionResponse) => response),
+      catchError(this.authService.handleError)
+    )
+  }
+
   public updateTransaction(id: string, model: TransactionRequest): Observable<ApiTransactionResponse> {
     return this.http.put<ApiTransactionResponse>(this.apiUrl + this.transactionsEndpoint + id, model,
       this.authService.getAuthHeaders()

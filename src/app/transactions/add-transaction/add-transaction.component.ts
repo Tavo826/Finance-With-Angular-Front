@@ -108,8 +108,18 @@ export class AddTransactionComponent {
     transaction.type = formValues.type == "Entrada" ? "Income" : formValues.type == "Salida" ? "Output" : formValues.type == "Deuda" ? "Debt" : "Exchange"
     transaction.user_id = this.authService.getCurrentUserValue()?._id!
     transaction.origin_id = this.originMap.get(formValues.origin_id || "") || ""
-    
-    this.httpTransactionProvider.saveTransaction(transaction).subscribe({
+
+    const isExchange = transaction.type === "Exchange"
+
+    if (isExchange) {
+      transaction.destination_id = this.originMap.get(formValues.destination_id || "") || ""
+    }
+
+    const request$ = isExchange
+      ? this.httpTransactionProvider.saveTransactionExchange(transaction)
+      : this.httpTransactionProvider.saveTransaction(transaction)
+
+    request$.subscribe({
       next: () => {
         this.router.navigate(['Home'])
       },
